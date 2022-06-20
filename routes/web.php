@@ -19,3 +19,15 @@ Route::get('/', function () {
 Route::get('/cso', function () {
     return view('cso.dashboard');
 });
+Route::get('/command-center', function () {
+    return view('command-center.dashboard');
+});
+Route::get('/rekapitulasi', function () {
+    return view('command-center.rekapitulasi');
+});
+Route::get('/tic-area', function () {
+    return view('tic-area.dashboard');
+});
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});

@@ -105,6 +105,10 @@
                             <a class="" id="home-button" href="" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
                             
                         </li>
+                        <li>
+                            <a class="" id="home-button" href="" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
+                            
+                        </li>
                         
                     </ul>
                 </nav>
@@ -168,7 +172,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer-copy-right">
-                            <p>Copyright © 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+                            <p>Copyright © 2022 <a href="https://colorlib.com/wp/templates/">JMTC</a> | Jasa Marga Tollroad Command Center</p>
                         </div>
                     </div>
                 </div>
