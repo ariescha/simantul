@@ -8,7 +8,7 @@
 									<div class="row">
                                         <div class="col-lg-12">
                                             <div class="col-lg-7">
-                                                <button type="button" class="btn btn-primary">+ Tambah Data</button>
+                                                <!-- <button type="button" class="btn btn-primary">+ Tambah Data</button> -->
                                     
                                             </div>
                                             <div class="col-lg-5">

@@ -1041,6 +1041,21 @@ ul.two-part-sp li{
     top: 10px;
 	border-radius:2px;
 }
+.btn-vehicle:hover {
+    transition-duration: 0.4s;
+    background: #2f0042;
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 10px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    top: 10px;
+	border-radius:2px;
+}
+
 .actions.graph-rp .btn.active, .actions.graph-rp .btn:active {
     box-shadow: none;
 }
@@ -2455,6 +2470,19 @@ ul.tab-custon-design li.active a, ul.tab-review-design li.active a{
 }
 .form-control {
     background-color: #f8f5fc !important;
+    background-image: none;
+    border-radius: 10px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 90%;
+	height:40px;
+    margin : 10px;
+}
+
+.form-control-purple {
+    background-color: #2f0042 !important;
     background-image: none;
     border-radius: 10px;
     color: inherit;

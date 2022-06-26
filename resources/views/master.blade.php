@@ -1,9 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="en">
-
+@include('sweetalert::alert')
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard V.1 | Nalika - Material Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +42,6 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" href="assets/css/morrisassets/js/morris.css">
     <!-- mCustomScrollbar CSS
 		============================================ -->
     <link rel="stylesheet" href="assets/css/scrollbar/jquery.mCustomScrollbar.min.css">
@@ -63,7 +63,16 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/datatable.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
