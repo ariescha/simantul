@@ -74,7 +74,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-
+<?php 
+  $username = Session::get('username');
+  $role = Session::get('role');  
+?>
 <body>
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -109,15 +112,29 @@
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        
+                      @if($role == 1)
                         <li>
-                            <a class="" id="home-button" href="" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
-                            
+                            <a class="" id="home-button" href="{{route('dashboard-cso')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                        </li>
+                      @elseif($role == 2)
+                      <li>
+                            <a class="" id="home-button" href="{{route('dashboard-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
                         </li>
                         <li>
-                            <a class="" id="home-button" href="" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
-                            
+                            <a class="" id="home-button" href="{{route('rekapitulasi-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
+                        </li> 
+                      @elseif($role == 3)
+                      <li>
+                            <a class="" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
                         </li>
+                      @elseif($role == 4)
+                      <li>
+                            <a class="" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                        </li>
+                        <li>
+                            <a class="" id="home-button" href="{{route('rekapitulasi-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
+                        </li> 
+                      @endif
                         
                     </ul>
                 </nav>
@@ -152,14 +169,22 @@
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">    
-															<span class="admin-name">Hi, Anggun Windari</span>
-														</a>
+															                        <span class="admin-name">Hi, {{$username}}</span>
+														                        </a>
                                                 </li>
                                                 <li class="nav-item" style="visibility:hidden">
                                                     <span class="admin-name">CSO</span>
                                                 </li>
                                                 <li class="nav-item">
+                                                    @if($role == 1)
                                                     <span class="admin-name">CSO</span>
+                                                    @elseif($role == 2)
+                                                    <span class="admin-name">Command Center</span>
+                                                    @elseif($role == 3)
+                                                    <span class="admin-name">TIC Area</span>
+                                                    @elseif($role == 4)
+                                                    <span class="admin-name">Admin</span>
+                                                    @endif
                                                 </li>
                                                 <li class="nav-item" style="visibility:hidden">
                                                     <span class="admin-name">CSO</span>

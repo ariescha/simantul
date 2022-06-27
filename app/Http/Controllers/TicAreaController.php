@@ -22,9 +22,7 @@ class TicAreaController extends Controller
     public function LoadLaporanTic(){
         date_default_timezone_set("Asia/Bangkok");
 
-        // $ruasUser = Session::get('ruas_user');
-        $ruasUser = 1;
-
+        $ruasUser = Session::get('ruas');
         $list_laporan = DB::table('list_laporan')
                         ->select('*')
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')

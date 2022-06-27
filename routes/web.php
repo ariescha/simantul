@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.welcome-page');
 });
-Route::get('/login-cso', function () {
-    return view('auth.login.login-cso');
-});
+
+Route::get('login/{id}','UserController@index')->name('login');
+Route::post('loginpost','UserController@loginpost')->name('loginpost');
 
 
 //dashboard Command Center
@@ -52,5 +52,5 @@ Route::post('edit-laporan','CsoController@editLaporan')->name('edit-laporan');
 Route::post('change-priority','CsoController@changePriority')->name('change-priority');
 
 //Dashboard TIC-Area
-Route::get('dashboard-tic','TicAreaController@index')->name('dashboard-tic');
+Route::get('dashboard-tic-area','TicAreaController@index')->name('dashboard-tic-area');
 Route::get('LoadLaporanTic','TicAreaController@LoadLaporanTic')->name('LoadLaporanTic');

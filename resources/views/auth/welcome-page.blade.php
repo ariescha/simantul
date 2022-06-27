@@ -86,41 +86,41 @@
                         <div class="row"style="margin:50px">
                             <div class="col-lg-3">
 
-                                <button type="button" class="icon" style="background-color:transparent;border:none;">
+                                <a type="button" class="icon" style="background-color:transparent;border:none;" href="{{ url('login/'.'1')}}">
                                     <center>
                                         <img src="assets/img/user/cso.png" width="100%" alt="">
                                         <div class="row"style="background-color:#685072;width:100%;">
                                             <h4 style="color:white;padding-top:15px;padding-bottom:15px;">Customer <br>Service Officer</h4>
                                         </div>
                                     </center>
-                                </button>
+                                </a>
                             </div>
                             <div class="col-lg-3">
-                                <button type="button" class="icon" style="background-color:transparent;border:none;"><img src="assets/img/user/command-center.png" alt="">
+                                <a type="button" class="icon" style="background-color:transparent;border:none;" href="{{ url('login/'.'2')}}"><img src="assets/img/user/command-center.png" alt="">
                                     <center>
                                         <div class="row"style="background-color:#685072;width:100%;">
                                             <h4 style="color:white;padding-top:15px;padding-bottom:15px;">Command<br>Center</h4>
                                         </div>
                                     </center>
-                                </button>   
+                                </a>   
                             </div>
                             <div class="col-lg-3">
-                                <button type="button" class="icon" style="background-color:transparent;border:none;"><img src="assets/img/user/tic-area.png" alt="">
+                                <a type="button" class="icon" style="background-color:transparent;border:none;" href="{{ url('login/'.'3')}}"><img src="assets/img/user/tic-area.png" alt="">
                                     <center>
                                         <div class="row"style="background-color:#685072;width:100%;">
                                             <h4 style="color:white;padding-top:15px;padding-bottom:15px;">Traffic <br>Information Center</h4>
                                         </div>
                                     </center>
-                                </button>
+                                </a>
                             </div>
                             <div class="col-lg-3">
-                            <button type="button" class="icon" style="background-color:transparent;border:none;"><img src="assets/img/user/admin.png" alt="">
+                            <a type="button" class="icon" style="background-color:transparent;border:none;" href="{{ url('login/'.'4')}}"><img src="assets/img/user/admin.png" alt="">
                                 <center>
                                     <div class="row"style="background-color:#685072;width:100%;">
                                         <h4 style="color:white;padding-top:15px;padding-bottom:15px;">Admin /<br>Management</h4>
                                     </div>
                                 </center>
-                                </button>
+                            </a>
                             </div>
 
                         </div>
