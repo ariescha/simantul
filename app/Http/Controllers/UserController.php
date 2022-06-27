@@ -24,6 +24,7 @@ class UserController extends Controller
                 Session::put('ruas',$user->ruas);
                 Session::put('username',$user->username);
                 Session::put('role',$request->role_id);
+                Session::put('user_id',$user->user_id);
                 if($user->role == 1 && $request->role_id == 1){
                     return redirect('dashboard-cso');
                 }else if($user->role == 2 && $request->role_id == 2){

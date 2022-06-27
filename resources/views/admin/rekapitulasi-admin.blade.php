@@ -1,5 +1,9 @@
 @extends('master')
 @section('content')
+<style>
+    .dropdown-area{display:block;width:100%;margin-left:16px;height:34px;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#fff;background-color:#471f61;background-image:none;border:1px solid #471f61;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
+    .dropdown-area:focus{border-color:#471f61;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}
+</style>
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
@@ -49,7 +53,21 @@
                 
             
             </div>
+            <br>
+            
+            <div class="col-lg-4">
+                <form action="post" id="form-area" method="post"multipart="enctype/form-data">
+                    {{csrf_field()}}
+                    <select name="area" id="area" class="dropdown-area" onchange="LoadChart()">
+                        <option value="" disabled selected>Pilih Area</option>
+                        <option value="1">Metropolitan</option>
+                        <option value="2">Transjawa</option>
+                        <option value="3">Nusantara</option>
+                    </select>
+                </form>
+            </div>
             <div class="col-lg-12">
+                
                 <div class="col-lg-3">
                     <div class="breadcome-list" style="background-color:white;border-radius:10px;">
                         <canvas id="myChart_1"></canvas> <br>
@@ -124,158 +142,13 @@
             plugins:[counter]
         };
 
-        const ctx_1 = document.getElementById('myChart_1');
         
-        const myChart_1 = new Chart(ctx_1, config);
         const ctx_2 = document.getElementById('myChart_2');
         const myChart_2 = new Chart(ctx_2, config);
         const ctx_3 = document.getElementById('myChart_3');
         const myChart_3 = new Chart(ctx_3,config);
         const ctx_4 = document.getElementById('myChart_4');
         const myChart_4 = new Chart(ctx_4,config);
-        	// round corners
-	// Chart.pluginService.register({
-	// 	afterUpdate: function (chart) {
-	// 		if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
-	// 			var arc = chart.getDatasetMeta(0).data[chart.config.options.elements.arc.roundedCornersFor];
-	// 			arc.round = {
-	// 				x: (chart.chartArea.left + chart.chartArea.right) / 2,
-	// 				y: (chart.chartArea.top + chart.chartArea.bottom) / 2,
-	// 				radius: (chart.outerRadius + chart.innerRadius) / 2,
-	// 				thickness: (chart.outerRadius - chart.innerRadius) / 2 - 1,
-	// 				backgroundColor: arc._model.backgroundColor
-	// 			}
-	// 		}
-	// 	},
-
-	// 	afterDraw: function (chart) {
-	// 		if (chart.config.options.elements.arc.roundedCornersFor !== undefined) {
-	// 			var ctx = chart.chart.ctx;
-	// 			var arc = chart.getDatasetMeta(0).data[chart.config.options.elements.arc.roundedCornersFor];
-	// 			var startAngle = Math.PI / 2 - arc._view.startAngle;
-	// 			var endAngle = Math.PI / 2 - arc._view.endAngle;
-
-	// 			ctx.save();
-	// 			ctx.translate(arc.round.x, arc.round.y);
-	// 			console.log(arc.round.startAngle)
-	// 			ctx.fillStyle = arc.round.backgroundColor;
-	// 			ctx.beginPath();
-	// 			ctx.arc(arc.round.radius * Math.sin(startAngle), arc.round.radius * Math.cos(startAngle), arc.round.thickness, 0, 2 * Math.PI);
-	// 			ctx.arc(arc.round.radius * Math.sin(endAngle), arc.round.radius * Math.cos(endAngle), arc.round.thickness, 0, 2 * Math.PI);
-	// 			ctx.closePath();
-	// 			ctx.fill();
-	// 			ctx.restore();
-	// 		}
-	// 	},
-	// });
-
-	// // write text plugin
-	// Chart.pluginService.register({
-	// 	afterUpdate: function (chart) {
-	// 		if (chart.config.options.elements.center) {
-	// 			var helpers = Chart.helpers;
-	// 			var centerConfig = chart.config.options.elements.center;
-	// 			var globalConfig = Chart.defaults.global;
-	// 			var ctx = chart.chart.ctx;
-
-	// 			var fontStyle = helpers.getValueOrDefault(centerConfig.fontStyle, globalConfig.defaultFontStyle);
-	// 			var fontFamily = helpers.getValueOrDefault(centerConfig.fontFamily, globalConfig.defaultFontFamily);
-
-	// 			if (centerConfig.fontSize)
-	// 				var fontSize = centerConfig.fontSize;
-	// 				// figure out the best font size, if one is not specified
-	// 			else {
-	// 				ctx.save();
-	// 				var fontSize = helpers.getValueOrDefault(centerConfig.minFontSize, 1);
-	// 				var maxFontSize = helpers.getValueOrDefault(centerConfig.maxFontSize, 256);
-	// 				var maxText = helpers.getValueOrDefault(centerConfig.maxText, centerConfig.text);
-
-	// 				do {
-	// 					ctx.font = helpers.fontString(fontSize, fontStyle, fontFamily);
-	// 					var textWidth = ctx.measureText(maxText).width;
-
-	// 					// check if it fits, is within configured limits and that we are not simply toggling back and forth
-	// 					if (textWidth < chart.innerRadius * 2 && fontSize < maxFontSize)
-	// 						fontSize += 1;
-	// 					else {
-	// 						// reverse last step
-	// 						fontSize -= 1;
-	// 						break;
-	// 					}
-	// 				} while (true)
-	// 				ctx.restore();
-	// 			}
-
-	// 			// save properties
-	// 			chart.center = {
-	// 				font: helpers.fontString(fontSize, fontStyle, fontFamily),
-	// 				fillStyle: helpers.getValueOrDefault(centerConfig.fontColor, globalConfig.defaultFontColor)
-	// 			};
-	// 		}
-	// 	},
-	// 	afterDraw: function (chart) {
-	// 		if (chart.center) {
-	// 			var centerConfig = chart.config.options.elements.center;
-	// 			var ctx = chart.chart.ctx;
-
-	// 			ctx.save();
-	// 			ctx.font = chart.center.font;
-	// 			ctx.fillStyle = chart.center.fillStyle;
-	// 			ctx.textAlign = 'center';
-	// 			ctx.textBaseline = 'middle';
-	// 			var centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
-	// 			var centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-	// 			ctx.fillText(centerConfig.text, centerX, centerY);
-	// 			ctx.restore();
-	// 		}
-	// 	},
-	// })
-
-
-	// var config = {
-	// 	type: 'doughnut',
-	// 	data: {
-	// 		labels: [
-	// 			"Red",
-	// 			"Gray"
-	// 		],
-	// 		datasets: [{
-	// 			data: [67, 33],
-	// 			backgroundColor: [
-	// 				"#FF6684",
-	// 				"#ccc"
-	// 			],
-	// 			hoverBackgroundColor: [
-	// 				"#FF6384",
-	// 				"#ccc"
-	// 			]
-	// 		}]
-	// 	},
-	// 	options: {
-	// 		elements: {
-	// 			arc: {
-	// 				roundedCornersFor: 0
-	// 			},
-	// 			center: {
-	// 				// the longest text that could appear in the center
-	// 				maxText: '100%',
-	// 				text: '67%',
-	// 				fontColor: '#FF6684',
-	// 				fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-	// 				fontStyle: 'normal',
-	// 				// fontSize: 12,
-	// 				// if a fontSize is NOT specified, we will scale (within the below limits) maxText to take up the maximum space in the center
-	// 				// if these are not specified either, we default to 1 and 256
-	// 				minFontSize: 1,
-	// 				maxFontSize: 256,
-	// 			}
-	// 		}
-	// 	}
-	// };
-
-
-	// 	var ctx = document.getElementById("myChart").getContext("2d");
-	// 	var myChart = new Chart(ctx, config);
 
         $('#tanggal').datepicker({
                     autoclose : true,
@@ -296,11 +169,11 @@
 
         $(document).ready(function() {
             LoadRekapitulasi();
-            
         });
 
         function LoadRekapitulasi() {
             console.log('Load Rekapitulasi');
+
             $.ajax({
                 url: "{{url('/LoadRekapitulasi')}}",
                 type: 'GET',
@@ -314,12 +187,95 @@
                     document.getElementById('nilai-diteruskan').innerHTML = data.data[0]['cnt_diteruskan'];
                     document.getElementById('nilai-ditindak').innerHTML = data.data[0]['cnt_ditindak'];
                 }
-            });
-
-            setTimeout(function() {
+            });setTimeout(function() {
                 // LoadRekapitulasi();
             }, 3000);
         }
+        
+        // function submit_form_area(){
+        //     $.ajax({
+        //                     url:"{{url('/PilihRegion')}}",
+        //                     method:"POST",
+        //                     headers: {
+        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //                     },
+        //                     data:$('#form-area').serialize(),
+        //                     dataType:'json',
+        //                     error: function(e) {
+        //                         console.log(e);
+        //                         console.log('Forward to TIC Error');
+        //                     },
+        //                     success:function(data)
+        //                     {
+        //                         console.log(data);
+        //                         LoadChart();
+        //                     }
+        //                 });
+        // }
+        function LoadChart() {
+            var a = $('#area').val();
+            console.log(a);
+            $.ajax({
+                url: "{{url('/LoadChart')}}"+"/"+a,
+                type: 'GET',
+                dataType: 'json',
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(data) {
+                    console.log(data.data);
+                    var temp = data.data[0]; 
+                    for(var i=0; i < temp.length; i++){
+                        var counter_1 = [];
+                        counter_1.push({
+                            'id' : 'counter',
+                            beforeDraw(chart,args,options){
+                                const {ctx,chartArea:{top,right,bottom,left,width,height}}= chart;
+                                ctx.save();
+                                ctx.font = '20px Helvetica';
+                                ctx.textAlign = 'center';
+                                ctx.fillStyle = 'rgba(71, 16, 107, 1)';
+                                ctx.fillText(data.data[2][i],width/2,top+(height/2));
+                            }
+                        });
+                        var config_1 = []
+                        config_1.push({
+                            type: 'doughnut',
+                            data: {
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [data.data[1][i],data.data[0][i]],
+                                    backgroundColor: [
+                                        'rgba(71, 16, 107, 1)',
+                                        'rgba(222, 236, 254, 1)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(71, 16, 107, 0.2)',
+                                        'rgba(222, 236, 254, 0.2)'
+                                    ],
+                                    borderJoinStyle: 'round',
+                                    borderRadius: [30,30],
+                                    borderWidth: 1,
+                                    cutout: '70%',
+                                    
+                                }]
+                            },
+                            options: {
+                                responsive:true,
+                                
+                            },
+                            plugins:[counter_1[i]]
+                        });  
+                    }
+
+                    
+                    const ctx = document.getElementById('myChart_1');
+        
+                    const myChart_1 = new Chart(ctx, config_1);
+                }
+            });}
+
+            
     
     
     

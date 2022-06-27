@@ -6,6 +6,26 @@
     .orangeRow{
         background-color: orange !important;
     }
+    .btn-purple{
+        color: #572890;
+        width: 150px;
+        background-color: #ffff;
+        border-color: #882ea4 !important}
+    .btn-purple.focus,
+    .btn-purple:focus{
+        color: #ffff !important;
+        background-color: #662890;
+        border-color: #122b40}
+    .btn-purple:hover{
+        color: #ffff !important;
+        background-color: #572890;
+        border-color: #5f2074}
+    .btn-purple:active{
+        color: #ffff !important;
+        background-color: #572890;
+        border-color: #5f2074}
+    
+    
 </style>
 @section('content')
     <div class="breadcome-area">
@@ -64,13 +84,11 @@
       <div class="modal-body">
         <form action="" method="post">
             <div class="row">
-                <h5>Mobile Customer Service</h5>
                 <div class="col-lg-12">
-                    <div class="form-group row">
-                        <button type="button" class="btn btn-vehicle" style="border:1px solid #5E0F80;width:140px">K01</button>
-                        <button type="button" class="btn btn-vehicle" style="border:1px solid #5E0F80;width:140px">K02</button>
-                        <button type="button" class="btn btn-vehicle" style="border:1px solid #5E0F80;width:140px">K03</button>
-                    </div>
+
+                <h5>Mobile Customer Service</h5>
+                        <button type="button" class="btn btn-purple">K01</button>
+                   
                     
                 </div>
             </div>

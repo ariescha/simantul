@@ -1028,33 +1028,7 @@ ul.two-part-sp li{
     text-transform: capitalize;
 	font-weight:400;
 }
-.btn-small {
-    background: #2f0042;
-    color: #fff !important;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 10px;
-    position: absolute;
-    right: 10px;
-    text-align: center;
-    text-transform: uppercase;
-    top: 10px;
-	border-radius:2px;
-}
-.btn-vehicle:hover {
-    transition-duration: 0.4s;
-    background: #2f0042;
-    color: #fff !important;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 10px;
-    position: absolute;
-    right: 10px;
-    text-align: center;
-    text-transform: uppercase;
-    top: 10px;
-	border-radius:2px;
-}
+
 
 .actions.graph-rp .btn.active, .actions.graph-rp .btn:active {
     box-shadow: none;

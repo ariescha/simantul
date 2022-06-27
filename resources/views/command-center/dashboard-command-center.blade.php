@@ -125,6 +125,7 @@
                     $('#Laporan').DataTable({
                         "destroy": true,
                         "aaData": data.data,
+                        "order": [[0,'desc']],
                         "scrollX": true,
                         "columns":[
                             { "data": "laporan_created_timestamp"},

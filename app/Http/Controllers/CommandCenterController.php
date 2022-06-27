@@ -26,9 +26,13 @@ class CommandCenterController extends Controller
 
     public function ForwardTIC(Request $request){
         // dd($request);
+        $cc_id = Session::get('npp');
         DB::table('list_laporan')->where('laporan_id',$request->laporan_id)
         ->update([
-            'laporan_forward_to_tic_timestamp' => date('Y-m-d H:i:s'),]);
+            'laporan_forward_to_tic_timestamp' => date('Y-m-d H:i:s'),
+            'command_center_id' => $cc_id,
+            'status_id' => 2,
+        ]);
         return response()->json(['status' =>true, 'data' => null ]);
     }
 }

@@ -40,6 +40,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Routing Admin
 Route::get('rekapitulasi-admin','RekapitulasiAdminController@index')->name('rekapitulasi-admin');
+Route::get('LoadRekapitulasiAdmin','RekapitulasiAdminController@LoadRekapitulasi')->name('LoadRekapitulasiAdmin');
+Route::get('LoadChart/{id}','RekapitulasiAdminController@LoadChart')->name('LoadChart');
+Route::get('PilihRegion','RekapitulasiAdminController@PilihRegion')->name('PilihRegion');
 Route::get('dashboard-admin','AdminController@index')->name('dashboard-admin');
 
 

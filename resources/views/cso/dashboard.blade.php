@@ -7,6 +7,7 @@
         background-color: orange !important;
     }
 </style>
+<?php $user_id = Session::get('user_id'); ?>
 @section('content')
     <div class="breadcome-area">
         <div class="container-fluid">
@@ -65,7 +66,7 @@
 
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahPermintaan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-xl" style="width:700px"role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Tambah Permintaan Baru</h5>
@@ -78,7 +79,7 @@
         {{csrf_field()}}
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="row">
+                    <div class="form-group">
                         <label for="nama" class="form-label">Nama</label>
                         <input 
                             type="text" 
@@ -90,7 +91,7 @@
                             oninvalid="this.setCustomValidity('Silakan isi Nama!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                    <div class="row" >
+                    <div class="form-group" >
                         <label for="no_hp" class="form-label">No Handphone</label>
                         <input 
                             type="number" 
@@ -102,7 +103,8 @@
                             oninvalid="this.setCustomValidity('Silakan isi No Handphone!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                    <div class="row">
+
+                    <div class="form-group">
                         <label for="jenis_mobil" class="form-label">Jenis Mobil</label>
                         <input 
                             type="text" 
@@ -113,9 +115,9 @@
                             required 
                             oninvalid="this.setCustomValidity('Silakan isi Jenis Mobil!')" oninput="this.setCustomValidity('')"
                         />
-                    </div>
+                    </div> </div>
                 <div class="col-lg-6">
-                    <div class="row">
+                    <div class="form-group">
                         <label for="plat_nomor" class="form-label">Plat Nomor</label>
                         <input 
                             type="text" 
@@ -129,7 +131,7 @@
                             oninvalid="this.setCustomValidity('Silakan isi Plat Nomor!')" oninput="this.setCustomValidity('')"
                         />                    
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="ruas" class="form-label">Ruas</label>
                         <select name="ruas" id="ruas" class="form-control" required>
                             <option value="" disabled selected>Pilih Ruas</option>
@@ -138,7 +140,7 @@
 		                    @endforeach
                         </select>
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="jenis_kendala" class="form-label">Jenis Kendala</label>
                         <select name="jenis_kendala" id="jenis_kendala" class="form-control" required>
                             <option value="" disabled selected>Pilih Kendala</option>
@@ -148,7 +150,7 @@
                         </select>
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
                         <label for="jalur" class="form-label">Jalur</label>
                         <select name="jalur" id="jalur" class="form-control" required>
                             <option value="" disabled selected>Pilih Jalur</option>
@@ -157,7 +159,7 @@
                         </select>
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
                         <label for="km" class="form-label">KM</label>
                         <input 
                             type="text" 
@@ -170,15 +172,14 @@
                         />
                     </div>
 
-                    <div class="row">
+                    <div class="form-group">
                         <label for="keterangan" class="form-label">Keterangan</label>
                         <textarea 
                             name="keterangan" 
                             id="keterangan" 
                             cols="30" 
                             rows="10" 
-                            class="form-control" 
-                            placeholder="Keterangan"
+                            class="form-control"
                             required 
                             oninvalid="this.setCustomValidity('Silakan isi Keterangan!')" oninput="this.setCustomValidity('')">
                         </textarea>
@@ -214,6 +215,7 @@
       <div class="modal-body">
       <form id="form_edit_laporan" class="mb-3" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
+
             <div class="row">
                 <div class="col-lg-6">
                 <div class="row">
