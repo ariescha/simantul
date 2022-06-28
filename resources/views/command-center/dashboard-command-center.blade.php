@@ -5,24 +5,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="breadcome-list">
-						<!-- <div class="row">
-                            <div class="col-lg-12">
-                                <div class="col-lg-7">
-                                    <button type="button" class="btn btn-primary">+ Tambah Data</button>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="header-top-menu tabl-d-n hd-search-rp">
-                                        <div class="breadcome-heading  pull-right">
-                                            <form role="search" class="">
-												<a href=""><i class="fa fa-search"></i></a>
-												<input type="text" placeholder="Pencarian..." class="form-control">
-											</form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br> -->
+						
                         <div class="row">
                             <div class="table-responsive text-nowrap">
                                 <table id="Laporan" class="table table-hover" style="background-color:white; width:100%">
@@ -32,9 +15,11 @@
                                             <th>Nama</th>
                                             <th>No. Handphone</th>
                                             <th>Jenis Kendaraan</th>
+                                            <th>Jenis Kendala</th>
                                             <th>Plat Nomor</th>
                                             <th>Ruas</th>
                                             <th>Jalur</th>
+                                            <th>KM</th>
                                             <th>Keterangan</th>
                                             <th>Teruskan</th>
                                         </tr>
@@ -62,7 +47,7 @@
                 Swal.fire({
                     title: "Apakah Anda Yakin",
                     text: "Ingin Meneruskan Laporan Ke TIC Area?",
-                    type: "warning",
+                    icon: "question",
                     showCancelButton: true,
                     confirmButtonText: 'Ya',
                     cancelButtonText: `Tidak`,
@@ -132,14 +117,16 @@
                             { "data": "laporan_name"},
                             { "data": "laporan_phone_no"},
                             { "data": "laporan_vehicle_category"},
+                            { "data": "kendala"},
                             { "data": "laporan_plat_no"},
-                            { "data": "laporan_ruas_id"},
+                            { "data": "ruas_name"},
                             { "data": "laporan_jalur"},
+                            { "data": "laporan_km"},
                             { "data": "laporan_description"},
                             { "data": "laporan_id"},
                         ],
                         "columnDefs": [
-                            {"targets": 8,
+                            {"targets": 10,
                             "data": null,
                             "render": function (data, type, row, meta){
                                 return '<button id="forward-to-tic" class="btn rounded-pill btn-sm btn-warning" onclick="forwardtic(`' + 

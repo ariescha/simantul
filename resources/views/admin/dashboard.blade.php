@@ -1,39 +1,26 @@
 @extends('master')
+
 @section('content')
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="breadcome-list">
-									<div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-7">
-                                                <!-- <button type="button" class="btn btn-primary">+ Tambah Data</button> -->
-                                    
-                                            </div>
-                                            <div class="col-lg-5">
-                                            <div class="header-top-menu tabl-d-n hd-search-rp">
-                                            <div class="breadcome-heading  pull-right">
-                                                <form role="search" class="">
-													<a href=""><i class="fa fa-search"></i></a>
-													<input type="text" placeholder="Pencarian..." class="form-control">
-												</form>
-                                            </div></div></div>
-                                        </div>
-                                    </div>
-                                    <br>
+									
                                     <div class="row">
-                                    <div class="bootstrap-table">
-                                        <table id="table" class="table table-no-bordered">
-                                            <thead style="color:white">
+                                    <div class="table-responsive text-nowrap">
+                                    <table id="Laporan" class="table table-hover" style="background-color:white;width:100%">
+                                            <thead style="color:black">
                                                 <tr style="text-align:center">
                                                     <th>Waktu Laporan</th>
                                                     <th>Nama</th>
                                                     <th>No. Handphone</th>
                                                     <th>Jenis Kendaraan</th>
+                                                    <th>Jenis Kendala</th>
                                                     <th>Plat Nomor</th>
                                                     <th>Ruas</th>
                                                     <th>Jalur</th>
+                                                    <th>KM</th>
                                                     <th>Keterangan</th>
                                                     <th>CSO</th>
                                                     <th>Command Center</th>
@@ -41,44 +28,75 @@
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
-                                            <tbody style="color:white">
+                                            <tbody style="color:black">
                                                 <tr class="separator" style="height:5px"></tr>
-                                                <tr style="background-color:#370c4a;text-align:center">
-                                                    <td>07.52 WIB 25/05/22</td>
-                                                    <td>Sutrisna</td>
-                                                    <td>0821931313</td>
-                                                    <td>Honda Jazz</td>
-                                                    <td>B 8172 WQ</td>
-                                                    <td>Jagorawi</td>
-                                                    <td>A</td>
-                                                    <td>Pecah Ban</td>
-                                                    <td>Anggun</td>
-                                                    <td>Rara</td>
-                                                    <td>Sita</td>
-                                                    <td style="color:green">SUDAH DITINDAK</td>
-                                                </tr>
-                                                <tr class="separator" style="height:5px"></tr>
-                                                <tr style="background-color:#370c4a;text-align:center">
-                                                    <td>07.52 WIB 25/05/22</td>
-                                                    <td>Fauzi Alfath</td>
-                                                    <td>0829138133</td>
-                                                    <td>Toyota Supra</td>
-                                                    <td>B 9821 WQ</td>
-                                                    <td>MBZ</td>
-                                                    <td>A</td>
-                                                    <td>Mogok</td>
-                                                    <td>Anggun</td>
-                                                    <td>Rara</td>
-                                                    <td>Sita</td>
-                                                    <td style="color:red">BELUM DITINDAK</td>
-                                                </tr>
+                                                <tr style="background-color:#370c4a;text-align:center"></tr>
+                                                
                                             </tbody>
-                                        </table>
-                                    
-                        </div>
-                                    </div>
-                                    
+                                        </table>     
+                                </div>
+                        </div>    
                     </div>
                 </div>
             </div>
+            
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            LoadLaporanAdmin();
+
+        });
+
+
+        //table cso
+        function LoadLaporanAdmin(){
+            // console.log('LoadLaporanCso');
+            $.ajax({
+                url: "{{url('/LoadLaporanAdmin')}}",
+                type: 'GET',
+                dataType: 'json',
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(data) {
+                    console.log(data.data);
+                    $('#Laporan').DataTable({
+                        "order":[[0, 'desc']],
+                        "destroy": true,
+                        "aaData": data.data,
+                        "scrollX": true,
+                        "columns":[
+                            { "data": "laporan_created_timestamp"},
+                            { "data": "laporan_name"},
+                            { "data": "laporan_phone_no"},
+                            { "data": "laporan_vehicle_category"},
+                            { "data": "kendala"},
+                            { "data": "laporan_plat_no"},
+                            { "data": "ruas_name"},
+                            { "data": "laporan_jalur"},
+                            { "data": "laporan_km"},
+                            { "data": "laporan_description"},
+                            { "data": "cso_id_name"},
+                            { "data": "command_center_id_name"},
+                            { "data": "tic_id_name"},
+                            { "data": "status_name"}
+                        ]
+                    });
+                }
+            });
+
+            setTimeout(function () {
+                LoadLaporanAdmin();
+            }, 30000);
+        }
+    </script>
 @endsection

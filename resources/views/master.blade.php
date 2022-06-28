@@ -114,7 +114,7 @@
                     <ul class="metismenu" id="menu1">
                       @if($role == 1)
                         <li>
-                            <a class="" id="home-button" href="{{route('dashboard-cso')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('dashboard-cso')}}"  aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
                         </li>
                       @elseif($role == 2)
                       <li>
@@ -190,7 +190,7 @@
                                                     <span class="admin-name">CSO</span>
                                                 </li>
                                                 <li class="nav-item nav-setting-open">
-                                                  <a  href="{{route('logout')}}"><i class="fa fa-sign-out"></i></a>
+                                                  <a onclick="logout()"><i class="fa fa-sign-out"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -215,6 +215,23 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+      function logout(){
+        Swal.fire({
+                    title: "Apakah anda yakin",
+                    text: "Ingin logout dari SIMANTUL?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: `Tidak`,
+                }).then((result) => {
+                    console.log(result);
+                    if(result['value'] == true){
+                      window.location.href= "{{URL::to('logout')}}";
+                    }
+                });
+      }
+    </script>
     <!-- jquery
 		============================================ -->
     <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>

@@ -17,8 +17,12 @@ class CommandCenterController extends Controller
 
     public function LoadLaporan(){
         $list_laporan = DB::table('list_laporan')
+                    -> select('*')
                     // -> selectraw("select laporan_created_timestamp,laporan_name,laporan_phone_no,laporan_vehicle_category,laporan_plat_no,laporan_ruas_id,laporan_description")
-                    ->whereraw("laporan_forward_to_tic_timestamp is null")
+                    -> leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
+                    -> leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
+                    // ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
+                    -> whereraw("laporan_forward_to_tic_timestamp is null")
                     -> get();
         // dd($list_laporan);
         return response()->json(['status' => true, 'data' => $list_laporan]);

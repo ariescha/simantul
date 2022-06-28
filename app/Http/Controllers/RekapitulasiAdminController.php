@@ -7,6 +7,9 @@ use App\Models\List_Laporan;
 use App\Models\Management_Ruas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RekapExport;
+
 class RekapitulasiAdminController extends Controller
 {
     public function index(){
@@ -31,6 +34,10 @@ class RekapitulasiAdminController extends Controller
         
         // dd($list_laporan);
         return response()->json(['status' => true, 'data' => $list_laporan]);
+    }
+
+    public function ExportExcel(){
+        return Excel::download(new RekapExport, 'Rekapitulasi.xlsx');
     }
     public function LoadChart($id){
         $area_1 = [1,2,3,4,5,6,7,8,9,10,11];

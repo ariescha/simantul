@@ -29,7 +29,8 @@ Route::post('ForwardTIC','CommandCenterController@ForwardTIC')->name('ForwardTIC
 
 //rekapitulasi Command Center
 Route::get('rekapitulasi-command-center','RekapitulasiCCController@index')->name('rekapitulasi-command-center');
-Route::get('LoadRekapitulasi','RekapitulasiCCController@LoadRekapitulasi')->name('LoadRekapitulasi');
+Route::get('LoadRekapitulasiCC/{id}','RekapitulasiCCController@LoadRekapitulasiCC')->name('LoadRekapitulasiCC');
+Route::post('submitDate','RekapitulasiCCController@submitDate')->name('submitDate');
 
 //Petugas TIC
 Route::get('Petugas','PetugasController@index')->name('Petugas');
@@ -45,8 +46,8 @@ Route::get('LoadRekapitulasiAdmin/{id}','RekapitulasiAdminController@LoadRekapit
 Route::get('LoadChart/{id}','RekapitulasiAdminController@LoadChart')->name('LoadChart');
 Route::get('PilihRegion','RekapitulasiAdminController@PilihRegion')->name('PilihRegion');
 Route::get('dashboard-admin','AdminController@index')->name('dashboard-admin');
-
-
+Route::get('LoadLaporanAdmin','AdminController@LoadLaporanAdmin')->name('LoadLaporanAdmin');
+Route::get('rekapitulasi-admin/export_excel', 'RekapitulasiAdminController@ExportExcel')->name('rekap-admin-export');
 
 //Routing Dashboard CSO
 Route::get('dashboard-cso','CsoController@index')->name('dashboard-cso');

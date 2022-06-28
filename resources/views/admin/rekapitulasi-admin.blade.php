@@ -47,7 +47,7 @@
                     </div>
                 </div> 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" style="width:100%" class="btn btn-primary">EXPORT DATA</button>
+                    <a type="button" href="{{route('rekap-admin-export')}}" style="width:100%" class="btn btn-primary">EXPORT DATA</a>
                 </div>  
                 
             
@@ -200,7 +200,7 @@
                         $('#chart-area').append(`<div class="col-lg-3 chart-canvas">
                             <div class="breadcome-list" style="background-color:white;border-radius:10px;">
                                 <canvas id="myChart_${i}"></canvas> <br>
-                                <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px">${data.data[3][i]}</button>
+                                <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px;white-space: normal;word-wrap: break-word;">${data.data[3][i]}</button>
                             </div>
                         </div>`);
                         var charr = document.getElementById('myChart_'+i);
