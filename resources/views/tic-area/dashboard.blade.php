@@ -24,8 +24,10 @@
         color: #ffff !important;
         background-color: #572890;
         border-color: #5f2074}
-    
-    
+    .no-click{
+        cursor: pointer;
+        pointer-events: none;
+    }
 </style>
 @section('content')
     <div class="breadcome-area">
@@ -40,15 +42,16 @@
                                             <thead style="color:black">
                                                 <tr style="text-align:center">
                                                     <th style="display:none;">Status Prioritas</th>
+                                                    <th stype="display:none;">id laporan</th>
                                                     <th>Waktu Laporan</th>
                                                     <th>Nama</th>
                                                     <th>No. Handphone</th>
-                                                    <th>Jenis Kendaraan</th>
-                                                    <th>Jenis Kendala</th>
-                                                    <th>Plat Nomor</th>
                                                     <th>Ruas</th>
-                                                    <th>Jalur</th>
                                                     <th>KM</th>
+                                                    <th>Jalur</th>
+                                                    <th>Jenis Kendaraan</th>
+                                                    <th>Plat Nomor</th>
+                                                    <th>Jenis Kendala</th>
                                                     <th>Keterangan</th>
                                                     <th>Teruskan</th>
                                                 </tr>
@@ -60,10 +63,10 @@
                                             </tbody>
                                         </table>     
                                 </div>
-                                <!-- <form id="form-forward" method="post" enctype="multipart/form-data">
+                                <form id="form-data" method="post" enctype="multipart/form-data">
                                     {{  csrf_field()  }}
-                                    <input type="hidden" id="laporan_id" type="number" name="laporan_id">
-                                </form> -->
+                                    <input type="hidden" id="data_laporan_id" type="number" name="laporan_id">
+                                </form>
                         </div>    
                     </div>
                 </div>
@@ -72,7 +75,7 @@
 
 
     <!-- Modal -->
-<div class="modal fade" id="forward" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="forward" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,37 +85,102 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
-            <div class="row">
-                <div class="col-lg-12">
-
-                <h5>Mobile Customer Service</h5>
-                        <button type="button" class="btn btn-purple">K01</button>
-                   
-                    
-                </div>
-            </div>
+        <form id="assign-petugas" method="post" enctype="multipart/form-data">
+            {{  csrf_field() }}
+            <input type="hidden" id="laporan_id" type="text" name="laporan_id">
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Assign Tugas</button>
+        <button type="button" class="btn btn-primary" onclick="assignPetugas()">Assign Tugas</button>
       </div>
     </div>
   </div>
 </div>
 
     <script type="text/javascript">
-        
+
         $(document).ready(function() {
             LoadLaporanTic();
+            $('#forward').on('hidden.bs.modal', function () {
+                $('#assign-petugas').html("");
+                $('#assign-petugas').append(`
+                    <input type="hidden" id="laporan_id" type="text" name="laporan_id">
+                `);
+            })
         });
+        function LoadDataPetugas(id){
+            console.log('Load Data Petugas');
+            $('#laporan_id').val(id);
+            $.ajax({
+                url:"{{url('/LoadDataPetugas')}}",
+                type: 'GET',
+                dataType: 'json',
+                error: function(e){
+                    console.log(e);
+                },
+                success: function(data){
+                    console.log(data.data);
+                    var arr = data.data;
+                    var x = 0;
+                    for (const i of arr['jenis_kendaraan']) {
+                        $('#assign-petugas').append(`
+                            <div class="row">
+                                <h5>${i['jenis_kendaraan']}</h5>
+                                <div class="col-lg-12">
+                                    <div id="list_nomor_kendaraan" class="form-group row">
+                                    </div> 
+                                </div>
+                            </div>
+                        `);
+                        for (const j of arr['data_petugas_aktif']){
+                            if (j['jenis_kendaraan'] == i['jenis_kendaraan']) {
+                                $('#list_nomor_kendaraan').append(`
+                                        <label>
+                                            <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple">
+                                            <span>${j['kendaraan_nomor']}</span>
+                                        </label>
+                                `)    
+                                x = x+1;
+                            }
+                        }
+                    }
+                }
+            })
+        }
 
-        function assignPetugas(id){
-                console.log('Forward to TIC')
-                $('#laporan_id').val(id);
-                Swal.fire({
+        function assignPetugas(){
+            console.log('assignPetugas');
+            $('#forward').modal('hide');
+            $.ajax({
+                url:"{{url('/AssignPetugas')}}",
+                method:"POST",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data:$('#assign-petugas').serialize(),
+                dataType:'json',
+                error: function(e) {
+                    console.log(e);
+                    console.log('Assign Petugas Error');
+                    Swal.fire('Gagal Assign Petugas!', '', 'error')
+                    },
+                success:function(data){
+                    if(data.status){
+                        Swal.fire('Berhasil Assign Petugas!', '', 'success');
+                        LoadLaporanTic();
+                    }
+                    else{
+                        ShowNotif(data.data, 'red');
+                    }
+                }
+            })                        
+                        // Swal.fire('Berhasil Diteruskan Ke TIC Area!', '', 'success');
+        }
+
+        function PetugasArrived(id){
+            console.log('Set Petugas Arrived');
+            $('#data_laporan_id').val(id);
+            Swal.fire({
                     title: "Apakah Anda Yakin",
-                    text: "Ingin Meneruskan Laporan Ke TIC Area?",
+                    text: "Petugas Sudah Sampai di Lokasi Laporan?",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonText: 'Ya',
@@ -121,35 +189,71 @@
                     console.log(result);
                     if(result['value'] == true){
                         $.ajax({
-                            url:"{{url('/ForwardTIC')}}",
+                            url:"{{url('/PetugasArrived')}}",
                             method:"POST",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data:$('#form-forward').serialize(),
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data:$('#form-data').serialize(),
                             dataType:'json',
                             error: function(e) {
                                 console.log(e);
-                                console.log('Forward to TIC Error');
-                                Swal.fire('Gagal Meneruskan Ke TIC Area!', '', 'error')
+                                console.log('Error Set Petugas Sudah Sampai');
+                                Swal.fire('Gagal Input Petugas Sudah Sampai!', '', 'error')
                                 // ShowNotif('Forward to TIC Gagal!', 'red');
                             },
                             success:function(data)
                             {
-                                console.log(data);
                                 if(data.status){
-                                    Swal.fire('Berhasil Diteruskan Ke TIC Area!', '', 'success');
-                                    LoadLaporan();
+                                    Swal.fire('Berhasil Input Petugas Sudah Sampai!', '', 'success');
+                                    LoadLaporanTic();
                                 }
                                 else{
                                     ShowNotif(data.data, 'red');
                                 }
                             }
                         })                        
-                        // Swal.fire('Berhasil Diteruskan Ke TIC Area!', '', 'success');
                     }
                 });
-            }
+        }
+
+        function PetugasDone(id){
+            console.log('Set Petugas Done');
+            $('#data_laporan_id').val(id);
+            Swal.fire({
+                    title: "Apakah Anda Yakin",
+                    text: "Laporan Sudah Selesai Ditindak?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: `Tidak`,
+                }).then((result) => {
+                    console.log(result);
+                    if(result['value'] == true){
+                        $.ajax({
+                            url:"{{url('/PetugasDone')}}",
+                            method:"POST",
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data:$('#form-data').serialize(),
+                            dataType:'json',
+                            error: function(e) {
+                                console.log(e);
+                                console.log('Error Set Petugas Sudah Selesai');
+                                Swal.fire('Gagal Input Petugas Sudah Selesai!', '', 'error')
+                                // ShowNotif('Forward to TIC Gagal!', 'red');
+                            },
+                            success:function(data)
+                            {
+                                if(data.status){
+                                    Swal.fire('Berhasil Input Petugas Sudah Selesai!', '', 'success');
+                                    LoadLaporanTic();
+                                }
+                                else{
+                                    ShowNotif(data.data, 'red');
+                                }
+                            }
+                        })                        
+                    }
+                });
+        }
 
         //table cso
         function LoadLaporanTic(){
@@ -162,25 +266,24 @@
                     console.log(e);
                 },
                 success: function(data) {
-                    console.log(data.data);
                     $('#Laporan').DataTable({
-                        "order":[[0, 'desc'],[1,'desc']],
+                        "order":[[0, 'desc'],[2,'desc']],
                         "destroy": true,
                         "aaData": data.data,
                         "scrollX": true,
                         "columns":[
                             { "data": "priority_id"},
+                            { "data": "laporan_id"},
                             { "data": "laporan_created_timestamp"},
                             { "data": "laporan_name"},
                             { "data": "laporan_phone_no"},
-                            { "data": "laporan_vehicle_category"},
-                            { "data": "kendala"},
-                            { "data": "laporan_plat_no"},
                             { "data": "ruas_name"},
-                            { "data": "laporan_jalur"},
                             { "data": "laporan_km"},
+                            { "data": "laporan_jalur"},
+                            { "data": "laporan_vehicle_category"},
+                            { "data": "laporan_plat_no"},
+                            { "data": "kendala"},
                             { "data": "laporan_description"},
-                            { "data": "laporan_id"}
 
                         ],
                         columnDefs: [
@@ -189,13 +292,37 @@
                             visible: false,
                             searchable: false,
                         },
-                        {"targets": 11,
-                            "data": null,
+                        {
+                            targets: 1,
+                            visible: false,
+                            searchable: false,
+                        },
+                        {"targets": 12,
+                            "data": "status_id",
                             "render": function (data, type, row, meta){
-                                return '<button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button type="button" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';}
-                                
+                                if (data == 3){
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 4){
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 5){
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 6){
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                }
+                                else{
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                }        
+                            }                        
+                        },
+                        {
+                            targets: 11,
+                            render: function (data, type, row) {
+                                return type === 'display' && data.length > 30 ? data.substr(0, 30) + '…' : data;
                             }
-                        ],
+                        }],
                         "createdRow": function (row, data, index) {
                             if (data.priority === "High") {
                                 $(row).addClass('redRow');

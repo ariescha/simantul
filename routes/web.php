@@ -59,3 +59,7 @@ Route::post('change-priority','CsoController@changePriority')->name('change-prio
 //Dashboard TIC-Area
 Route::get('dashboard-tic-area','TicAreaController@index')->name('dashboard-tic-area');
 Route::get('LoadLaporanTic','TicAreaController@LoadLaporanTic')->name('LoadLaporanTic');
+Route::get('LoadDataPetugas','TicAreaController@LoadDataPetugas')->name('LoadDataPetugas');
+Route::post('AssignPetugas','TicAreaController@AssignPetugas')->name('AssignPetugas');
+Route::post('PetugasArrived','TicAreaController@PetugasArrived')->name('PetugasArrived');
+Route::post('PetugasDone','TicAreaController@PetugasDone')->name('PetugasDone');

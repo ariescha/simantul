@@ -47,12 +47,40 @@ class PetugasController extends Controller
 
     public function tambahDataKendaraan($kendaraan_jenis,$kendaraan_nomor){
         $kendaraan_baru = new Kendaraan;
-        $kendaraan_baru -> kendaraan_jenis = $request->id_kendaraan[$key];
-        $kendaraan_baru -> kendaraan_nomor = $v;
+        $kendaraan_baru -> kendaraan_jenis = $kendaraan_jenis;
+        $kendaraan_baru -> kendaraan_nomor = $kendaraan_nomor;
         $kendaraan_baru -> ruas_id = 1;
         $kendaraan_baru -> status = 1;
         $kendaraan_baru -> save();
         
+        return $kendaraan_baru->kendaraan_id;
+    }
+
+    public function updateDataPetugas($kendaraan_id,$status,$onduty){
+        $petugas = Data_Petugas::where('kendaraan_id','=',$kendaraan_id)->where('status','=',1)->first();
+        if ($petugas){
+            $petugas -> status = $status;
+            $petugas -> onduty = $onduty;
+            $petugas -> save();
+            return;
+        }
+        else{
+            return "Data Petugas tidak ditemukan";
+        }
+    }
+
+    public function updateDataKendaraan($kendaraan_id,$status){
+        $kendaraan = Kendaraan::where('kendaraan_id','=',$kendaraan_id)->first();
+        if ($kendaraan){
+            $kendaraan -> status = $status;
+            $kendaraan -> save(); 
+            return;
+        }  
+        else {
+            return "Data Kendaraan tidak ditemukan";
+        }
+
+        return;
     }
 
     public function insert(Request $request){
@@ -72,33 +100,24 @@ class PetugasController extends Controller
                 foreach($value as $k => $v){
                     $kendaraan_all = Kendaraan::where('kendaraan_nomor','=',$v)->where('ruas_id','=',1)->selectraw('count(kendaraan_nomor) as hitungan')->first();
                     if($kendaraan_all->hitungan == 0){
-                        $kendaraan_baru = new Kendaraan;
-                        $kendaraan_baru -> kendaraan_jenis = $request->id_kendaraan[$key];
-                        $kendaraan_baru -> kendaraan_nomor = $v;
-                        $kendaraan_baru -> ruas_id = 1;
-                        $kendaraan_baru -> status = 1;
-                        $kendaraan_baru->save();
-                        
+                        $kendaraan_baru_id = $this->tambahDataKendaraan($request->id_kendaraan[$key],$v);
+
                         if($request->nama_petugas_1[$key][$k] != null || $request->nama_petugas_2[$key][$k] != null){
-                            $request->request->add(['saved_kendaraan_id'=>$kendaraan_baru->kendaraan_id]);
-                            $this->tambahDataPetugas($request->saved_kendaraan_id,$request->nama_petugas_1[$key][$k],$request->nama_petugas_2[$key][$k]);
+                            $this->tambahDataPetugas($kendaraan_baru_id,$request->nama_petugas_1[$key][$k],$request->nama_petugas_2[$key][$k]);
                         }
                         else{
-                            echo "nama petugasnya kosong kak";
                         }
                     }
                     else{
                         $kendaraan_id = Kendaraan::where('kendaraan_nomor','=',$v)->where('ruas_id','=',1)->selectraw('kendaraan_id')->first();
-                        $petugas_lama = Data_Petugas::where('kendaraan_id','=',$kendaraan_id->kendaraan_id)->where('status','=',1)->first();
+                        $check_data_petugas_lama = Data_Petugas::where('kendaraan_id','=',$kendaraan_id->kendaraan_id)->where('status','=',1)->first();
                         if($request->nama_petugas_1[$key][$k] != null || $request->nama_petugas_2[$key][$k] != null){
-                            if($petugas_lama){
-                                if($petugas_lama->npp_petugas_1 == $request->nama_petugas_1[$key][$k] && $petugas_lama->npp_petugas_2 == $request->nama_petugas_2[$key][$k]){
-                                    echo "sama kak";
+                            if($check_data_petugas_lama){
+                                if($check_data_petugas_lama->npp_petugas_1 == $request->nama_petugas_1[$key][$k] && $check_data_petugas_lama->npp_petugas_2 == $request->nama_petugas_2[$key][$k]){
                                 }
                                 else{
-                                $petugas_lama -> status = 0;
-                                $petugas_lama -> save();
-                                $this->tambahDataPetugas($kendaraan_id->kendaraan_id,$request->nama_petugas_1[$key][$k],$request->nama_petugas_2[$key][$k]);
+                                    $this->updateDataPetugas($kendaraan_id->kendaraan_id,0,0);
+                                    $this->tambahDataPetugas($kendaraan_id->kendaraan_id,$request->nama_petugas_1[$key][$k],$request->nama_petugas_2[$key][$k]);
                                 }
                             }
                             else{
@@ -106,22 +125,9 @@ class PetugasController extends Controller
                             }
                         }
                         else {
-                            if($petugas_lama){
-                                $petugas_lama -> status = 0;
-                                $petugas_lama -> save();
-                            }
-                            else{
-                                echo "emang ngga ada datanya kak";
-                            }
+                            $this->updateDataPetugas($kendaraan_id->kendaraan_id,0,0);
                         }
-                        $kendaraan_lama = Kendaraan::where('kendaraan_id','=',$kendaraan_id->kendaraan_id)->first();
-                        if($kendaraan_lama){
-                            $kendaraan_lama -> status = 1;
-                            $kendaraan_lama -> save();
-                        }
-                        else{
-                            echo "gagal mendapatkan kendaraan lama";
-                        }
+                        $this->updateDataKendaraan($kendaraan_id->kendaraan_id,1);
                     }
                 }
             }
@@ -131,29 +137,14 @@ class PetugasController extends Controller
             foreach($list_kendaraan_db as $list){
                 if(in_array($list->kendaraan_nomor,$list_kendaraan_view))
                 {  
-                    echo "tidak dihapus";
+                   
                 }
                 else
                 {
-                    $kendaraan_lama = Kendaraan::where('kendaraan_id','=',$list->kendaraan_id)->first();
-                    $petugas_lama = Data_Petugas::where('kendaraan_id','=',$list->kendaraan_id)->where('status','=',1)->first();
-                    if($kendaraan_lama){
-                        $kendaraan_lama-> status = 0;
-                        $kendaraan_lama-> save();
-                    } 
-                    else{
-                        echo "kendaraan_id tidak ditemukan";
-                    }
-                    if($petugas_lama){
-                        $petugas_lama->status = 0;
-                        $petugas_lama-> save();
-                    }
-                    else{
-                        echo "petugas_lama tidak ditemukan";
-                    }
+                    $this->updateDataKendaraan($list->kendaraan_id,0);
+                    $this->updateDataPetugas($list->kendaraan_id,0,0);
                 }
             }
-            die();
         }
         return response()->json(['status' => true,'data' => null]);
     }

@@ -38,6 +38,7 @@ class CsoController extends Controller
         date_default_timezone_set("Asia/Bangkok");
 
         $csoId = Session::get('npp');
+        $string = date('Y-m-d H:i:s').$request->no_hp;
 
         List_Laporan::create([
             'laporan_name'              => $request->nama,
@@ -49,7 +50,7 @@ class CsoController extends Controller
             'laporan_jalur'             => $request->jalur,
             'laporan_description'       => $request->keterangan,
             'laporan_km'                => $request->km,
-            'blast_url'                 => env('ENV_BLAST_URL'),
+            'blast_url'                 => env('ENV_BLAST_URL').hash("md5",$string),
             'status_id'                 => 1,
             'cso_id'                    => $csoId,
             'laporan_priority_status_id'=> 1,

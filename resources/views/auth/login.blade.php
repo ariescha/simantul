@@ -98,7 +98,7 @@
         <div class="vertical-center">
             <img src="{{asset('assets/img/logo/logo-square.png')}}" alt="" style="width:80px;">
             <h4 style="color:white; ">Welcome to</h4>
-            <h2 style="color:white;font-family:'georgia'">TOLL GUARD APP</h2>
+            <h2 style="color:white;font-family:'georgia'">SIMANTUL APP</h2>
         </div>
     </div>
   <div style="width:60%; height: 100%; float: left; display: inline-block; background-color: #f8f7fd">

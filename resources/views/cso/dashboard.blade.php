@@ -21,42 +21,39 @@
                                     
                                             </div>
                                             <div class="col-lg-5">
-                                            <div class="header-top-menu tabl-d-n hd-search-rp">
-                                            <div class="breadcome-heading  pull-right">
-                                                <form role="search" class="">
-													<a href=""><i class="fa fa-search"></i></a>
-													<input type="text" placeholder="Pencarian..." class="form-control">
-												</form>
-                                            </div></div></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
-                                    <div class="table-responsive text-nowrap">
-                                    <table id="Laporan" class="table table-hover" style="background-color:white;width:100%">
-                                            <thead style="color:black">
-                                                <tr style="text-align:center">
-                                                    <th style="display:none;">Status Prioritas</th>
-                                                    <th>Waktu Laporan</th>
-                                                    <th>Nama</th>
-                                                    <th>No. Handphone</th>
-                                                    <th>Jenis Kendaraan</th>
-                                                    <th>Jenis Kendala</th>
-                                                    <th>Plat Nomor</th>
-                                                    <th>Ruas</th>
-                                                    <th>Jalur</th>
-                                                    <th>KM</th>
-                                                    <th>Keterangan</th>
-                                                    <!-- <th>id</th> -->
-                                                </tr>
-                                            </thead>
-                                            <tbody style="color:black">
-                                                <tr class="separator" style="height:5px"></tr>
-                                                <tr style="background-color:#370c4a;text-align:center"></tr>
-                                                
-                                            </tbody>
-                                        </table>     
-                                </div>
+                                                <div class="table-responsive text-nowrap">
+                                                    <table id="Laporan" class="table table-hover">
+                                                            <thead style="color:white">
+                                                                <tr style="text-align:center">
+                                                                    <th style="display:none;">Status Prioritas</th>
+                                                                    <th>Waktu Laporan</th>
+                                                                    <th>Nama</th>
+                                                                    <th>No. Handphone</th>
+                                                                    <th>Ruas</th>
+                                                                    <th>KM</th>
+                                                                    <th>Jalur</th>
+                                                                    <th>Jenis Kendaraan</th>
+                                                                    <th>Plat Nomor</th>
+                                                                    <th>Jenis Kendala</th>
+                                                                    <th>Keterangan</th>
+                                                                    <!-- <th>id</th> -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="color:black">
+                                                                <tr class="separator" style="height:5px"></tr>
+                                                                <tr style="background-color:#370c4a;text-align:center"></tr>
+                                                            </tbody>
+                                                        </table>     
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+
                         </div>    
                     </div>
                 </div>
@@ -115,8 +112,7 @@
                             required 
                             oninvalid="this.setCustomValidity('Silakan isi Jenis Mobil!')" oninput="this.setCustomValidity('')"
                         />
-                    </div> </div>
-                <div class="col-lg-6">
+                    </div> 
                     <div class="form-group">
                         <label for="plat_nomor" class="form-label">Plat Nomor</label>
                         <input 
@@ -132,15 +128,6 @@
                         />                    
                     </div>
                     <div class="form-group">
-                        <label for="ruas" class="form-label">Ruas</label>
-                        <select name="ruas" id="ruas" class="form-control" required>
-                            <option value="" disabled selected>Pilih Ruas</option>
-                            @foreach($managementRuas as $p)
-                            <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
-		                    @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="jenis_kendala" class="form-label">Jenis Kendala</label>
                         <select name="jenis_kendala" id="jenis_kendala" class="form-control" required>
                             <option value="" disabled selected>Pilih Kendala</option>
@@ -150,15 +137,18 @@
                         </select>
                     </div>
 
+                </div>
+                <div class="col-lg-6">
+                    
                     <div class="form-group">
-                        <label for="jalur" class="form-label">Jalur</label>
-                        <select name="jalur" id="jalur" class="form-control" required>
-                            <option value="" disabled selected>Pilih Jalur</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
+                        <label for="ruas" class="form-label">Ruas</label>
+                        <select name="ruas" id="ruas" class="form-control" required>
+                            <option value="" disabled selected>Pilih Ruas</option>
+                            @foreach($managementRuas as $p)
+                            <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
+		                    @endforeach
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="km" class="form-label">KM</label>
                         <input 
@@ -171,18 +161,25 @@
                             oninvalid="this.setCustomValidity('Silakan isi KM!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
+                    <div class="form-group">
+                        <label for="jalur" class="form-label">Jalur</label>
+                        <select name="jalur" id="jalur" class="form-control" required>
+                            <option value="" disabled selected>Pilih Jalur</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+
+                    
 
                     <div class="form-group">
                         <label for="keterangan" class="form-label">Keterangan</label>
                         <textarea 
                             name="keterangan" 
                             id="keterangan" 
-                            cols="30" 
                             rows="10" 
                             class="form-control"
-                            required 
-                            oninvalid="this.setCustomValidity('Silakan isi Keterangan!')" oninput="this.setCustomValidity('')">
-                        </textarea>
+                            required></textarea>
                     </div>
                 </div>
 
@@ -218,7 +215,7 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                <div class="row">
+                <div class="form-group">
                         <label for="laporanid" class="form-label">Laporan ID</label>
                         <input 
                             type="text" 
@@ -229,7 +226,7 @@
                             readonly
                         />
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="priority" class="form-label">Prioritas</label>
                         <input 
                             type="text" 
@@ -240,7 +237,7 @@
                             readonly
                         />
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <!-- <label for="priorityid" class="form-label">Prioritas</label> -->
                         <input 
                             type="hidden" 
@@ -251,7 +248,7 @@
                             readonly
                         />
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="editnama" class="form-label">Nama</label>
                         <input 
                             type="text" 
@@ -263,7 +260,7 @@
                             oninvalid="this.setCustomValidity('Silakan isi Nama!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                    <div class="row" >
+                    <div class="form-group" >
                         <label for="editno_hp" class="form-label">No Handphone</label>
                         <input 
                             type="number" 
@@ -275,7 +272,7 @@
                             oninvalid="this.setCustomValidity('Silakan isi No Handphone!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="editjenis_mobil" class="form-label">Jenis Mobil</label>
                         <input 
                             type="text" 
@@ -287,8 +284,8 @@
                             oninvalid="this.setCustomValidity('Silakan isi Jenis Mobil!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                <div class="col-lg-6">
-                    <div class="row">
+                
+                    <div class="form-group">
                         <label for="editplat_nomor" class="form-label">Plat Nomor</label>
                         <input 
                             type="text" 
@@ -302,16 +299,7 @@
                             oninvalid="this.setCustomValidity('Silakan isi Plat Nomor!')" oninput="this.setCustomValidity('')"
                         />                    
                     </div>
-                    <div class="row">
-                        <label for="editruas" class="form-label">Ruas</label>
-                        <select name="editruas" id="editruas" class="form-control" required>
-                            <option value="" disabled selected>Pilih Ruas</option>
-                            @foreach($managementRuas as $p)
-                            <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
-		                    @endforeach
-                        </select>
-                    </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="editjenis_kendala" class="form-label">Jenis Kendala</label>
                         <select name="editjenis_kendala" id="editjenis_kendala" class="form-control" required>
                             <option value="" disabled selected>Pilih Kendala</option>
@@ -320,15 +308,18 @@
 		                    @endforeach
                         </select>
                     </div>
-                    <div class="row">
-                        <label for="editjalur" class="form-label">Jalur</label>
-                        <select name="editjalur" id="editjalur" class="form-control" required>
-                            <option value="" disabled selected>Pilih Jalur</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="editruas" class="form-label">Ruas</label>
+                        <select name="editruas" id="editruas" class="form-control" required>
+                            <option value="" disabled selected>Pilih Ruas</option>
+                            @foreach($managementRuas as $p)
+                            <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
+		                    @endforeach
                         </select>
                     </div>
-                    <div class="row">
+                    <div class="form-group">
                         <label for="editkm" class="form-label">KM</label>
                         <input 
                             type="text" 
@@ -340,18 +331,23 @@
                             oninvalid="this.setCustomValidity('Silakan isi KM!')" oninput="this.setCustomValidity('')"
                         />
                     </div>
-                    <div class="row">
+                    <div class="form-group">
+                        <label for="editjalur" class="form-label">Jalur</label>
+                        <select name="editjalur" id="editjalur" class="form-control" required>
+                            <option value="" disabled selected>Pilih Jalur</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="editketerangan" class="form-label">Keterangan</label>
                         <textarea 
                             name="editketerangan" 
-                            id="editketerangan" 
-                            cols="30" 
+                            id="editketerangan"
                             rows="10" 
                             class="form-control" 
                             placeholder="Keterangan"
-                            required 
-                            oninvalid="this.setCustomValidity('Silakan isi Keterangan!')" oninput="this.setCustomValidity('')">
-                        </textarea>
+                            required></textarea>
                     </div>
                 </div>
 
@@ -514,12 +510,12 @@
                             { "data": "laporan_created_timestamp"},
                             { "data": "laporan_name"},
                             { "data": "laporan_phone_no"},
-                            { "data": "laporan_vehicle_category"},
-                            { "data": "kendala"},
-                            { "data": "laporan_plat_no"},
                             { "data": "ruas_name"},
-                            { "data": "laporan_jalur"},
                             { "data": "laporan_km"},
+                            { "data": "laporan_jalur"},
+                            { "data": "laporan_vehicle_category"},
+                            { "data": "laporan_plat_no"},
+                            { "data": "kendala"},
                             { "data": "laporan_description"}
                         ],
                         columnDefs: [
@@ -527,7 +523,14 @@
                             targets: 0,
                             visible: false,
                             searchable: false,
-                        }],
+                        },{
+                            targets: 10,
+                            render: function (data, type, row) {
+                                return type === 'display' && data.length > 30 ? data.substr(0, 30) + '…' : data;
+                            }
+                        }
+                        
+                        ],
                         "createdRow": function (row, data, index) {
                             if (data.priority === "High") {
                                 $(row).addClass('redRow');
@@ -540,9 +543,9 @@
                 }
             });
 
-            setTimeout(function () {
-                LoadLaporanCso();
-            }, 30000);
+            // setTimeout(function () {
+            //     LoadLaporanCso();
+            // }, 30000);
         }
     </script>
 @endsection
