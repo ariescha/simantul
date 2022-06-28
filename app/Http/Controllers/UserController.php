@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     public function index($id){
-        
         return view('auth.login')->with('id',$id);
     }
 
@@ -19,7 +18,7 @@ class UserController extends Controller
 
         $user = User_Management::whereRaw('npp = ?', [$npp])->first();
         if($user){
-            if($password = $user->password){
+            if($password == $user->password){
                 Session::put('npp',$npp);
                 Session::put('ruas',$user->ruas);
                 Session::put('username',$user->username);
@@ -45,5 +44,10 @@ class UserController extends Controller
         } else{
             return back()->with('alert','Akun tidak ditemukan.');
         }
+    }
+
+    public function logout(){
+        Session::flush();
+        return redirect('');
     }
 }

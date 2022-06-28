@@ -189,7 +189,9 @@
                                                 <li class="nav-item" style="visibility:hidden">
                                                     <span class="admin-name">CSO</span>
                                                 </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-sign-out"></i></a></li>
+                                                <li class="nav-item nav-setting-open">
+                                                  <a  href="{{route('logout')}}"><i class="fa fa-sign-out"></i></a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

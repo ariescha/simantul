@@ -7,15 +7,14 @@
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-7 pull-right">
-                    <div class="col-lg-3">
-                        <label for="date" class="form-control">Filter tanggal :</label>
+                <div class="col-lg-8 pull-right">
+                    <div class="col-lg-4 pull-right">
+                            <input id="tanggal" name="tanggal" class="date form-control" type="text" placeholder="dd-mm-yyyy" onchange="LoadRekapitulasi()">
                     </div>
-                    <div class="col-lg-3">
-                        <form id="form-tanggal" method="post" enctype="multipart/form-data">
-                            <input id="tanggal" name="tanggal" class="date form-control" type="text" placeholder="dd-mm-yyyy">
-                            <button id="search" name="search"  class="btn rounded-pill btn-sm btn-warning" onclick="searchTanggal()">
+                    <div class="col-lg-3 pull-right">
+                        <label for="date" style="padding-top:20px;padding-left:50px;color:white">Filter tanggal :</label>
                     </div>
+                    
                 </div>
             </div>
             <div class="row">
@@ -66,90 +65,14 @@
                     </select>
                 </form>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="chart-area">
                 
-                <div class="col-lg-3">
-                    <div class="breadcome-list" style="background-color:white;border-radius:10px;">
-                        <canvas id="myChart_1"></canvas> <br>
-                        <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px"> JORR </button>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="breadcome-list" style="background-color:white;border-radius:10px;">
-                        <canvas id="myChart_2"></canvas><br>
-                        <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px"> DALKOT </button>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="breadcome-list" style="background-color:white;border-radius:10px;">
-                        <canvas id="myChart_3"></canvas><br>
-                        <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px"> JAGORAWI </button>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="breadcome-list" style="background-color:white;border-radius:10px;">
-                        <canvas id="myChart_4"></canvas><br>
-                        <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px"> JAPEK </button>
-                    </div>
-                </div>
             </div>
             
         </div>
     </div>
 
     <script type="text/javascript">
-        // $('#tanggal').datepicker({  
-        // format: 'dd-mm-yyyy',
-        // autoclose: true
-        // });
-        const counter = {
-            'id' : 'counter',
-            beforeDraw(chart,args,options){
-                const {ctx,chartArea:{top,right,bottom,left,width,height}}= chart;
-                ctx.save();
-                ctx.font = '20px Helvetica';
-                ctx.textAlign = 'center';
-                ctx.fillStyle = 'rgba(71, 16, 107, 1)';
-                ctx.fillText('97%',width/2,top+(height/2));
-            }
-        };
-
-        const config = {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    label: '# of Votes',
-                    data: [70,30],
-                    backgroundColor: [
-                        'rgba(71, 16, 107, 1)',
-                        'rgba(222, 236, 254, 1)'
-                    ],
-                    borderColor: [
-                        'rgba(71, 16, 107, 0.2)',
-                        'rgba(222, 236, 254, 0.2)'
-                    ],
-                    borderJoinStyle: 'round',
-                    borderRadius: [30,30],
-                    borderWidth: 1,
-                    cutout: '70%',
-                    
-                }]
-            },
-            options: {
-                responsive:true,
-                
-            },
-            plugins:[counter]
-        };
-
-        
-        const ctx_2 = document.getElementById('myChart_2');
-        const myChart_2 = new Chart(ctx_2, config);
-        const ctx_3 = document.getElementById('myChart_3');
-        const myChart_3 = new Chart(ctx_3,config);
-        const ctx_4 = document.getElementById('myChart_4');
-        const myChart_4 = new Chart(ctx_4,config);
-
         $('#tanggal').datepicker({
                     autoclose : true,
                     todayHighlight : true,
@@ -161,9 +84,6 @@
                     todayBtn: "linked",
                     startView: 0, maxViewMode: 0,minViewMode:0
 
-                    }).on('changeDate',function(ev){
-                    //this is right events ，trust me
-                    console.log(ev.format([ix], [format]))
                     });
         
 
@@ -173,9 +93,15 @@
 
         function LoadRekapitulasi() {
             console.log('Load Rekapitulasi');
-
+        
+            if($('#tanggal').val()){
+                var a = $('#tanggal').val();
+            }else{
+                var a = 0;
+            }
+            console.log(a);
             $.ajax({
-                url: "{{url('/LoadRekapitulasi')}}",
+                url: "{{url('/LoadRekapitulasiAdmin')}}"+"/"+a,
                 type: 'GET',
                 dataType: 'json',
                 error: function(e) {
@@ -225,21 +151,26 @@
                 success: function(data) {
                     console.log(data.data);
                     var temp = data.data[0]; 
+                    const elements = document.getElementsByClassName('chart-canvas');
+                    while(elements.length > 0){
+                        elements[0].parentNode.removeChild(elements[0]);
+                    }
                     for(var i=0; i < temp.length; i++){
-                        var counter_1 = [];
-                        counter_1.push({
+                        let pipi = data.data[2][i] + "%";
+
+                        let counter ={
                             'id' : 'counter',
                             beforeDraw(chart,args,options){
+
                                 const {ctx,chartArea:{top,right,bottom,left,width,height}}= chart;
                                 ctx.save();
                                 ctx.font = '20px Helvetica';
                                 ctx.textAlign = 'center';
                                 ctx.fillStyle = 'rgba(71, 16, 107, 1)';
-                                ctx.fillText(data.data[2][i],width/2,top+(height/2));
+                                ctx.fillText(pipi,width/2,top+(height/2));
                             }
-                        });
-                        var config_1 = []
-                        config_1.push({
+                        };
+                        let config = {
                             type: 'doughnut',
                             data: {
                                 datasets: [{
@@ -264,15 +195,22 @@
                                 responsive:true,
                                 
                             },
-                            plugins:[counter_1[i]]
-                        });  
-                    }
+                            plugins:[counter]
+                        };  
+                        $('#chart-area').append(`<div class="col-lg-3 chart-canvas">
+                            <div class="breadcome-list" style="background-color:white;border-radius:10px;">
+                                <canvas id="myChart_${i}"></canvas> <br>
+                                <button type="button" class="btn" style="width:100%;color:white;background-color:#47106B ;border-radius:30px">${data.data[3][i]}</button>
+                            </div>
+                        </div>`);
+                        var charr = document.getElementById('myChart_'+i);
+                        new Chart(charr, config);
 
+                    }
                     
-                    const ctx = document.getElementById('myChart_1');
-        
-                    const myChart_1 = new Chart(ctx, config_1);
+                    
                 }
+
             });}
 
             
