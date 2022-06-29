@@ -422,7 +422,7 @@
                         $('#tambahPermintaan').modal('hide');
                         document.getElementById("form_add_laporan").reset();
                         Swal.fire('Berhasil Input Data Laporan', '', 'success');                            
-                        // LoadLaporanCso();
+                        LoadLaporanCso();
                     }else{
                         ShowNotif(data.data, 'red');
                         }

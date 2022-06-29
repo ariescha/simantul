@@ -1,14 +1,11 @@
 @extends('master')
 <style>
-    .redRow{
-        background-color:red !important;
-    }
+    .redRow,
     .redRow:hover{
         background-color:red !important;
     }
-    .orangeRow{
-        background-color: orange !important;
-    }
+    
+    .orangeRow,
     .orangeRow:hover{
         background-color: orange !important;
     }

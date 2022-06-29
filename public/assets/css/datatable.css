@@ -210,11 +210,11 @@ table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.o
   cursor: hand;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-  background-color: #200136;
+ 
   cursor: hand;
 }
 table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
-  background-color: #200136;
+  
   cursor: hand;
 }
 table.dataTable.order-column tbody tr > .sorting_1,
@@ -282,43 +282,44 @@ table.dataTable.display tbody tr.even.selected > .sorting_3, table.dataTable.ord
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover > .sorting_1, table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
-  background-color: #200136;
+  
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover > .sorting_2, table.dataTable.order-column.hover tbody tr:hover > .sorting_2 {
-  background-color: #200136;
+  
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover > .sorting_3, table.dataTable.order-column.hover tbody tr:hover > .sorting_3 {
-  background-color: #200136;
+ 
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover.selected > .sorting_1, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1 {
-  background-color: #200136;
+ 
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover.selected > .sorting_2, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2 {
-  background-color: #200136;
+ 
   cursor: hand;
 }
 table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {
-  background-color: #200136;
+ 
   cursor: hand;
 }
 table.dataTable.no-footer {
   border-bottom: 1px solid #111;
-  background-color: #200136;
+  background-color: #2c033d !important;
   cursor: hand;
 }
 
 table.table.table-hover.dataTable.no-footer {
   background-color: #2c033d !important;
+
   cursor: hand;
 
 }
 
 table.table.table-hover.dataTable.no-footer tbody tr:hover{
-    background-color:  #2c033d !important;
+    background-color:  #2c033d;
   }
 
 table.dataTable.nowrap th, table.dataTable.nowrap td {

@@ -64,12 +64,7 @@ class AdminController extends Controller
                 $list_laporan[$x] -> tic_id_name = "";
             }
 
-            // print_r($list_laporan[$x]);
-            // echo ($csoId);
-            // echo ($commandCenterId);
-            // echo ($ticId);
-
-            // echo ('==================');
+            $list_laporan[$x] -> rating_pelanggan = "===";
         }
 
 
