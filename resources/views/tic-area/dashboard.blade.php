@@ -28,6 +28,52 @@
         cursor: pointer;
         pointer-events: none;
     }
+
+        
+    .cat{
+    margin: 4px;
+    background-color: #ffff;
+    border-radius: 4px;
+    border: 1px solid #2f0042;
+    overflow: hidden;
+    float: left;
+    }
+
+    .cat label {
+    float: left; line-height: 3.0em;
+    width: 8.0em; height: 3.0em;
+    }
+
+    .cat label span {
+    text-align: center;
+    padding: 3px 0;
+    display: block;
+    }
+
+    .cat label input {
+    position: absolute;
+    display: none;
+    color: #2f0042 !important;
+    }
+
+    /* selects all of the text within the input element and changes the color of the text */
+    .cat label input + span{color: #2f0042;}
+
+
+    /* This will declare how a selected input will look giving generic properties */
+    .cat input:checked + span {
+        color: #ffffff;
+        text-shadow: 0 0  6px rgba(0, 0, 0, 0.8);
+    }
+
+
+    /*
+    This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
+    */
+    .cat input:hover{
+        cursor:hand;
+    }
+    .comedy input:checked + span{background-color: #2f0042;}
 </style>
 @section('content')
     <div class="breadcome-area">
@@ -134,11 +180,11 @@
                         `);
                         for (const j of arr['data_petugas_aktif']){
                             if (j['jenis_kendaraan'] == i['jenis_kendaraan']) {
-                                $('#list_nomor_kendaraan').append(`
+                                $('#list_nomor_kendaraan').append(`<div  class="cat comedy">
                                         <label>
                                             <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple">
                                             <span>${j['kendaraan_nomor']}</span>
-                                        </label>
+                                        </label> </div>
                                 `)    
                                 x = x+1;
                             }
@@ -301,19 +347,19 @@
                             "data": "status_id",
                             "render": function (data, type, row, meta){
                                 if (data == 3){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 4){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 5){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 6){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else{
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button><button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }        
                             }                        
                         },

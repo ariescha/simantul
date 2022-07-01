@@ -122,7 +122,6 @@
                             id="plat_nomor" 
                             name="plat_nomor"
                             style="text-transform:uppercase"
-                            oninput="this.value = this.value.toUpperCase()"
                             required 
                             oninvalid="this.setCustomValidity('Silakan isi Plat Nomor!')" oninput="this.setCustomValidity('')"
                         />                    
@@ -186,7 +185,7 @@
             </div> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="addData()">Tambah Data</button>
+        <input id="tambah-data" type="submit" class="btn btn-primary" value="Tambah Data">
       </div>
     </div>
 </form>
@@ -377,7 +376,13 @@
         $(document).ready(function() {
             LoadLaporanCso();
 
-            
+            $('#tambah-data').click(function(e){
+                var valid = this.form.checkValidity();
+                if(valid){
+                    event.preventDefault();
+                    addData();
+                }
+            })
 
             $('#Laporan').on('click', 'tr', function () {
 
@@ -422,7 +427,7 @@
                         $('#tambahPermintaan').modal('hide');
                         document.getElementById("form_add_laporan").reset();
                         Swal.fire('Berhasil Input Data Laporan', '', 'success');                            
-                        LoadLaporanCso();
+                        // LoadLaporanCso();
                     }else{
                         ShowNotif(data.data, 'red');
                         }
