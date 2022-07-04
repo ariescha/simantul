@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard V.1 | Nalika - Material Admin Template</title>
+    <title>Aplikasi Penilaian Kinerja</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/assets/img/favicon.ico">
@@ -78,7 +78,7 @@
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                     <center>
                       <img src="assets/img/logo/logo-square.png" alt="" style="width:80px;margin-top:30px">

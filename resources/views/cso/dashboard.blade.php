@@ -1,10 +1,13 @@
 @extends('master')
 <style>
     .redRow{
-        background-color:red !important;
+        background-color:#F5413D !important;
+        color: black !important;
+        
     }
     .orangeRow{
-        background-color: orange !important;
+        background-color: #EDCA10 !important;
+        color: black !important;
     }
 </style>
 <?php $user_id = Session::get('user_id'); ?>
@@ -16,12 +19,8 @@
                     <div class="breadcome-list">
 									<div class="row">
                                         <div class="col-lg-12">
-                                            <div class="col-lg-7">
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahPermintaan">+ Tambah Data</button>
                                     
-                                            </div>
-                                            <div class="col-lg-5">
-                                            </div>
                                         </div>
                                     </div>
                                     <br>
@@ -41,6 +40,7 @@
                                                                     <th>Plat Nomor</th>
                                                                     <th>Jenis Kendala</th>
                                                                     <th>Keterangan</th>
+                                                                    <th style="width:300px">Status</th>
                                                                     <!-- <th>id</th> -->
                                                                 </tr>
                                                             </thead>
@@ -355,7 +355,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="editData()">Simpan</button>
         
-        <button type="button" class="btn btn-primary" onclick="changePriority()">Up-Prioritas</button>
+        <button type="button" class="btn btn-primary" id="btn-priority" onclick="changePriority()">Naikkan Prioritas</button>
     </div>
       
     </div>
@@ -400,7 +400,13 @@
                 document.getElementById('editjalur').value = table.row( this ).data().laporan_jalur;  
                 document.getElementById('editkm').value = table.row( this ).data().laporan_km;                 
                 document.getElementById('editketerangan').value = table.row( this ).data().laporan_description;
-                
+                var priority = table.row( this ).data().priority;
+                if( priority == "High"){
+                    
+                    document.getElementById('btn-priority').disabled = true;
+                }else{
+                    document.getElementById('btn-priority').disabled = false;
+                }
 
                 $('#editPermintaan').modal("show");  
             });
@@ -455,7 +461,7 @@
                         $('#editPermintaan').modal('hide');
                         // document.getElementById("form_add_laporan").reset();
                         Swal.fire('Berhasil Edit Prioritas', '', 'success');                            
-                        // LoadLaporanCso();
+                        LoadLaporanCso();
                     }else{
                         ShowNotif(data.data, 'red');
                         }
@@ -485,7 +491,7 @@
                         $('#editPermintaan').modal('hide');
                         // document.getElementById("form_add_laporan").reset();
                         Swal.fire('Berhasil Edit Data Laporan', '', 'success');                            
-                        // LoadLaporanCso();
+                        LoadLaporanCso();
                     }else{
                         ShowNotif(data.data, 'red');
                         }
@@ -506,7 +512,7 @@
                 success: function(data) {
                     console.log(data.data);
                     $('#Laporan').DataTable({
-                        "order":[[0, 'desc'],[1,'desc']],
+                        "order":[[0, 'desc'],[1,'asc']],
                         "destroy": true,
                         "aaData": data.data,
                         "scrollX": true,
@@ -521,7 +527,8 @@
                             { "data": "laporan_vehicle_category"},
                             { "data": "laporan_plat_no"},
                             { "data": "kendala"},
-                            { "data": "laporan_description"}
+                            { "data": "laporan_description"},
+                            { "data": "status_name"}
                         ],
                         columnDefs: [
                         {

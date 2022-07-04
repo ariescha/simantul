@@ -294,14 +294,11 @@
 
                     <div class="form-group">
                         <label for="ratingpelanggan" class="form-label">Rating Pelanggan</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Rating Pelanggan"
-                            id="ratingpelanggan" 
-                            name="ratingpelanggan"
-                            readonly                        
-                        />                    
+                        <div  id="ratingpelanggan" name="ratingpelanggan">
+                        
+                            <!-- <span class="fa fa-star checked"></span> -->
+                        </div>    
+                        
                     </div>
 
                     <div class="form-group">
@@ -315,6 +312,30 @@
                             readonly                        
                         />                    
                     </div>
+
+                    <div class="form-group">
+                        <label for="waktulaporanselesai" class="form-label">Waktu Laporan Selesai</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Waktu Laporan Selesai"
+                            id="waktulaporanselesai" 
+                            name="waktulaporanselesai"
+                            readonly                        
+                        />                    
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label for="totalwaktu" class="form-label">Total Waktu Laporan</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Total Waktu Laporan"
+                            id="totalwaktu" 
+                            name="totalwaktu"
+                            readonly                        
+                        />                    
+                    </div> -->
 
                 </div>
 
@@ -362,19 +383,70 @@
                 document.getElementById('petugascc').value = table.row( this ).data().command_center_id_name;
                 
                 
-                document.getElementById('waktuforwardtic').value = table.row( this ).data().laporan_forward_to_tic_timestamp;
+                if (table.row( this ).data().laporan_forward_to_tic_timestamp == null){
+                    document.getElementById('waktuforwardtic').value = '-';
+                }else{
+                    document.getElementById('waktuforwardtic').value = table.row( this ).data().laporan_forward_to_tic_timestamp + ' (' +  table.row( this ).data().total_forward_tic + ' Menit)';
+                }
 
                 document.getElementById('petugastic').value = table.row( this ).data().tic_id_name;
 
-                document.getElementById('waktuassignpetugas').value = table.row( this ).data().laporan_forward_to_petugas_timestamp;
 
-                document.getElementById('petugasbantuan').value = table.row( this ).data().data_petugas_id;
+                if (table.row( this ).data().laporan_forward_to_petugas_timestamp == null){
+                    document.getElementById('waktuassignpetugas').value = '-';
+                }else{
+                    document.getElementById('waktuassignpetugas').value = table.row( this ).data().laporan_forward_to_petugas_timestamp + ' (' +  table.row( this ).data().total_forward_petugas + ' Menit)';
+                }
 
-                document.getElementById('waktupetugassampai').value = table.row( this ).data().laporan_petugas_arrived_timestamp;
 
-                document.getElementById('ratingpelanggan').value = table.row( this ).data().rating_pelanggan;
+                document.getElementById('petugasbantuan').value = table.row( this ).data().data_petugas_generate;
+
+
+                if (table.row( this ).data().laporan_petugas_arrived_timestamp == null){
+                    document.getElementById('waktupetugassampai').value = '-';
+                }else{
+                    document.getElementById('waktupetugassampai').value = table.row( this ).data().laporan_petugas_arrived_timestamp + ' (' +  table.row( this ).data().total_petugas_arrived + ' Menit)';
+                }
+
+
+
+
+                if (table.row( this ).data().rating_pelanggan == 0){
+                    $('#ratingpelanggan').html("");
+                    $('#ratingpelanggan').append(`
+                        <span>-</span>
+                    `);                    
+                }else{       
+                    let starHtml = "";
+                    for (let i = 1; i <= table.row( this ).data().rating_pelanggan; i++) {
+                        starHtml = starHtml + '<span class="fa fa-star checked"></span>';
+                    }
+                    if (table.row( this ).data().rating_pelanggan < 5){
+                        for (let i = table.row( this ).data().rating_pelanggan; i < 5; i++) {
+                            starHtml = starHtml + '<span class="fa fa-star"></span>';
+                        }
+                    }
+                    // return starHtml;
+                    $('#ratingpelanggan').html("");
+                    $('#ratingpelanggan').append(starHtml);
+                }
+
+
+                if (table.row( this ).data().laporan_closed_timestamp == null){
+                    document.getElementById('waktulaporanselesai').value = '-';
+                }else{
+                    document.getElementById('waktulaporanselesai').value = table.row( this ).data().laporan_closed_timestamp + ' (' +  table.row( this ).data().total_arrived_close + ' Menit)';
+                }
+
 
                 
+                // if (table.row( this ).data().totaltimeminute == null){
+                //     document.getElementById('totalwaktu').value = '-';
+                // }else{
+                //     document.getElementById('totalwaktu').value = table.row( this ).data().totaltimeminute + ' Menit';
+                // }
+
+
                 $('#showData').modal("show");  
             });
 
@@ -383,7 +455,6 @@
 
         //table cso
         function LoadLaporanAdmin(){
-            // console.log('LoadLaporanCso');
             $.ajax({
                 url: "{{url('/LoadLaporanAdmin')}}",
                 type: 'GET',
@@ -407,14 +478,31 @@
                             { "data": "laporan_jalur"},
                             { "data": "laporan_vehicle_category"},
                             { "data": "laporan_plat_no"},
-                            { "data": "status_name"},
-                            { "data": "rating_pelanggan"}
+                            { "data": "status_name"}
+                            // { "data": "rating_pelanggan"}
                         ],
                         "columnDefs": [
                             {
                             targets: 0,
                             visible: false,
                             searchable: false,
+                            },
+                            {
+                            "targets": 9,
+                            "data": null,
+                            "render": function (data, type, row, meta){
+                                // console.log(data.rating_pelanggan);
+                                let starHtml = "";
+                                for (let i = 1; i <= data.rating_pelanggan; i++) {
+                                    starHtml = starHtml + '<span class="fa fa-star checked"></span>';
+                                }
+                                if (data.rating_pelanggan < 5){
+                                    for (let i = data.rating_pelanggan; i < 5; i++) {
+                                        starHtml = starHtml + '<span class="fa fa-star"></span>';
+                                    }
+                                }
+                                return starHtml;
+                            }
                             }
                         ]
                     });

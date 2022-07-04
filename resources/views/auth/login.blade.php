@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard V.1 | Nalika - Material Admin Template</title>
+    <title>Aplikasi Penilaian Kinerja</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/assets/img/favicon.ico')}}">
@@ -98,7 +98,7 @@
         <div class="vertical-center">
             <img src="{{asset('assets/img/logo/logo-square.png')}}" alt="" style="width:80px;">
             <h4 style="color:white; ">Welcome to</h4>
-            <h2 style="color:white;font-family:'georgia'">SIMANTUL APP</h2>
+            <h2 style="color:white;font-family:'Poppins'">SIMANTUL APP</h2>
         </div>
     </div>
   <div style="width:60%; height: 100%; float: left; display: inline-block; background-color: #f8f7fd">
@@ -121,22 +121,27 @@
                 @endif
               </div>
                 <div class="row">
-                    <select name="shift" id="shift" class="form-control" style="width:180px" required>
+                    <select name="shift" id="shift" class="form-control" style="width:40%" required>
                         <option value="" disabled selected>Pilih Shift</option>
-                        <option value="1">Shift 1 (08:00-24:00)</option>
-                        <option value="2">Shift 2 (24:00-08:00)</option>
+                        <option value="1">Shift 1 (06:00-14:00)</option>
+                        <option value="2">Shift 2 (14:00-22:00)</option>
+                        <option value="3">Shift 3 (22:00-06:00)</option>
                     </select>
                 </div>
                 <div class="row">
-                    <input type="text" style="width:600px" class="form-control" name="npp"  id="npp" placeholder="NPP" required>
+                    <input type="text" style="width: 600px;" class="form-control" name="npp"  id="npp" placeholder="NPP" required>
                 </div>
                 <div class="row">
-                    <input type="password" style="width:600px" class="form-control" name="password"  id="password" placeholder="Password" required>
+                    <input type="password" style="width: 600px;" class="form-control" name="password"  id="password" placeholder="Password" required>
                 </div>
                 <div class="row">
                     <center>
-                        <button type="submit"  style="width:600px"class="btn btn-primary">Masuk</button>
+                        <button type="submit"  style="width: 600px;"class="btn btn-primary">Masuk</button>
                     </center>
+                </div> <br>
+                <div class="row" style="padding-left:10px">
+                    Bukan @if(isset($id)) @if($id == '1') Customer Service Officer @elseif($id == '2') Command Center @elseif($id == '3') TIC Area @else Admin @endif @endif ? 
+                    <a href="{{route('welcome-page')}}">Masuk sebagai user lain.</a>
                 </div>
                 
             </form>

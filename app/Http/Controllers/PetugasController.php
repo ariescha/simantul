@@ -13,6 +13,7 @@ use Alert;
 class PetugasController extends Controller
 {
     public function index(){
+        date_default_timezone_set("Asia/Bangkok");
         $data_petugas = DB::table('kendaraan')
                         ->leftjoin('management_jenis_kendaraan','management_jenis_kendaraan.jenis_kendaraan','=','kendaraan.kendaraan_jenis')
                         ->joinsub('select data_petugas_id, kendaraan_id,npp_petugas_1,npp_petugas_2 from data_petugas where status = 1','petugas','kendaraan.kendaraan_id','=','petugas.kendaraan_id','left')
@@ -30,6 +31,7 @@ class PetugasController extends Controller
     }
 
     public function tambahDataPetugas($kendaraan_id,$npp_petugas_1,$npp_petugas_2){
+        date_default_timezone_set("Asia/Bangkok");
         if($npp_petugas_1 == null) {$npp_petugas_1 = "";};
         if($npp_petugas_2 == null) {$npp_petugas_2 = "";};
         $data_petugas = new Data_Petugas;
@@ -46,6 +48,7 @@ class PetugasController extends Controller
     }
 
     public function tambahDataKendaraan($kendaraan_jenis,$kendaraan_nomor){
+        date_default_timezone_set("Asia/Bangkok");
         $kendaraan_baru = new Kendaraan;
         $kendaraan_baru -> kendaraan_jenis = $kendaraan_jenis;
         $kendaraan_baru -> kendaraan_nomor = $kendaraan_nomor;
@@ -57,6 +60,7 @@ class PetugasController extends Controller
     }
 
     public function updateDataPetugas($kendaraan_id,$status,$onduty){
+        date_default_timezone_set("Asia/Bangkok");
         $petugas = Data_Petugas::where('kendaraan_id','=',$kendaraan_id)->where('status','=',1)->first();
         if ($petugas){
             $petugas -> status = $status;
@@ -70,6 +74,7 @@ class PetugasController extends Controller
     }
 
     public function updateDataKendaraan($kendaraan_id,$status){
+        date_default_timezone_set("Asia/Bangkok");
         $kendaraan = Kendaraan::where('kendaraan_id','=',$kendaraan_id)->first();
         if ($kendaraan){
             $kendaraan -> status = $status;
@@ -84,6 +89,7 @@ class PetugasController extends Controller
     }
 
     public function insert(Request $request){
+        date_default_timezone_set("Asia/Bangkok");
         $nomor_kendaraan = $request->nomor_kendaraan;
         $list_kendaraan_view = array();
         foreach($nomor_kendaraan as $key => $value){

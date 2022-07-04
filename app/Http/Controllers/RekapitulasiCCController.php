@@ -12,6 +12,7 @@ use Illuminate\Routing\ResponseFactory;
 class RekapitulasiCCController extends Controller
 {
     public function index(){
+        date_default_timezone_set("Asia/Bangkok");
         return view('command-center.rekapitulasi-command-center');
     }
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard V.1 | Nalika - Material Admin Template</title>
+    <title>Aplikasi Penilaian Kinerja</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -66,7 +66,12 @@
     
     <link rel="stylesheet" type="text/css" href="assets/css/datatable.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      .checked {
+        color: orange;
+      }
+    </style>
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
@@ -114,25 +119,28 @@
                     <ul class="metismenu" id="menu1">
                       @if($role == 1)
                         <li>
-                            <a class="" id="home-button" href="{{route('dashboard-cso')}}"  aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('dashboard-cso')}}"  aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                       @elseif($role == 2)
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('dashboard-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                         <li>
-                            <a class="" id="home-button" href="{{route('rekapitulasi-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('rekapitulasi-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
                         </li> 
                       @elseif($role == 3)
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('Petugas')}}" aria-expanded="false"><i class="fa fa-lg fa-user"></i> <span class="mini-click-non">Data Petugas</span></a>
+                        </li>
+                      <li>
+                            <a class="" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                       @elseif($role == 4)
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                         <li>
-                            <a class="" id="home-button" href="{{route('rekapitulasi-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non"></span></a>
+                            <a class="" id="home-button" href="{{route('rekapitulasi-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
                         </li> 
                       @endif
                         
@@ -159,18 +167,17 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="header-top-wraper">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcome-heading">
                                             <h3 style="color:white"><b>Dashboard</b></h3>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                                 <li class="nav-item">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">    
-															                        <span class="admin-name">Hi, {{$username}}</span>
-														                        </a>
+                                                   
+															                        <span class="admin-name">Hi, {{$username}}</span>\
                                                 </li>
                                                 <li class="nav-item" style="visibility:hidden">
                                                     <span class="admin-name">CSO</span>
@@ -189,8 +196,8 @@
                                                 <li class="nav-item" style="visibility:hidden">
                                                     <span class="admin-name">CSO</span>
                                                 </li>
-                                                <li class="nav-item nav-setting-open">
-                                                  <a onclick="logout()"><i class="fa fa-sign-out"></i></a>
+                                                <li class="nav-item">
+                                                  <a href="#" role="button" title="Log Out" onclick="logout()"><i class="fa fa-sign-out"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -208,7 +215,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer-copy-right">
-                            <p>Copyright © 2022 <a href="https://colorlib.com/wp/templates/">JMTC</a> | Jasa Marga Tollroad Command Center</p>
+                            <p>Copyright © 2022 <a href="#">JMTC</a> | Jasa Marga Tollroad Command Center</p>
                         </div>
                     </div>
                 </div>

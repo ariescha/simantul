@@ -1,10 +1,11 @@
 @extends('master')
 <style>
     .redRow{
-        background-color:red !important;
+        background-color:#F5413D !important;
     }
     .orangeRow{
-        background-color: orange !important;
+        background-color: #EDCA10 !important;
+        color: black !important;
     }
     .btn-purple{
         color: #572890;
@@ -71,9 +72,11 @@
     This following statements selects each category individually that contains an input element that is a checkbox and is checked (or selected) and chabges the background color of the span element.
     */
     .cat input:hover{
-        cursor:hand;
+        cursor:hand !important;
     }
     .comedy input:checked + span{background-color: #2f0042;}
+    .disable {background-color: grey;}
+
 </style>
 @section('content')
     <div class="breadcome-area">
@@ -81,11 +84,51 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="breadcome-list">
-									
-                                    <div class="row">
+                        <div class="custom-tabs-line tabs-line-bottom left-aligned">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li role="presentation" class="active"><a href="#sedang-proses" aria-controls="home" role="tab" data-toggle="tab">Sedang proses</a></li>
+                                <li role="presentation"><a href="#selesai-diteruskan" aria-controls="profile" role="tab" data-toggle="tab">Selesai diteruskan</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane active" id="sedang-proses" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
                                     <div class="table-responsive text-nowrap">
-                                    <table id="Laporan" class="table table-hover" style="background-color:white;width:100%">
-                                            <thead style="color:black">
+                                    <table id="Laporan" class="table table-hover" style="background-color:#2f0042;width:100%">
+                                            <thead style="color:white">
+                                                <tr style="text-align:center">
+                                                    <th style="display:none;">Status Prioritas</th>
+                                                    <th stype="display:none;">id laporan</th>
+                                                    <th>Waktu Laporan</th>
+                                                    <th>Nama</th>
+                                                    <th>No. Handphone</th>
+                                                    <th>Ruas</th>
+                                                    <th>KM</th>
+                                                    <th>Jalur</th>
+                                                    <th>Jenis Kendaraan</th>
+                                                    <th>Plat Nomor</th>
+                                                    <th>Jenis Kendala</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Teruskan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color:black">
+                                                <tr class="separator" style="height:5px"></tr>
+                                                <tr style="background-color:#370c4a;text-align:center"></tr>
+                                            </tbody>
+                                        </table>     
+                                </div>
+                                <form id="form-data" method="post" enctype="multipart/form-data">
+                                    {{  csrf_field()  }}
+                                    <input type="hidden" id="data_laporan_id" type="number" name="laporan_id">
+                                </form>
+                            </div> 
+                         </div>
+                            <div class="tab-pane" id="selesai-diteruskan" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="table-responsive text-nowrap">
+                                    <table id="Laporan_selesai" class="table table-hover" style="background-color:#2f0042;width:100%">
+                                            <thead style="color:white">
                                                 <tr style="text-align:center">
                                                     <th style="display:none;">Status Prioritas</th>
                                                     <th stype="display:none;">id laporan</th>
@@ -117,6 +160,7 @@
                     </div>
                 </div>
             </div>
+        </div></div>
             
 
 
@@ -147,6 +191,8 @@
 
         $(document).ready(function() {
             LoadLaporanTic();
+            LoadLaporanTicSelesai();
+
             $('#forward').on('hidden.bs.modal', function () {
                 $('#assign-petugas').html("");
                 $('#assign-petugas').append(`
@@ -168,27 +214,43 @@
                     console.log(data.data);
                     var arr = data.data;
                     var x = 0;
+                    var y = 0;
                     for (const i of arr['jenis_kendaraan']) {
+                        
                         $('#assign-petugas').append(`
                             <div class="row">
                                 <h5>${i['jenis_kendaraan']}</h5>
                                 <div class="col-lg-12">
-                                    <div id="list_nomor_kendaraan" class="form-group row">
+                                    <div id="list_nomor_kendaraan_${y}" class="form-group row">
                                     </div> 
                                 </div>
                             </div>
                         `);
                         for (const j of arr['data_petugas_aktif']){
                             if (j['jenis_kendaraan'] == i['jenis_kendaraan']) {
-                                $('#list_nomor_kendaraan').append(`<div  class="cat comedy">
+                                if(j['onduty'] == 0){
+                                    $('#list_nomor_kendaraan_'+y).append(`<div  class="cat comedy">
                                         <label>
                                             <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple">
                                             <span>${j['kendaraan_nomor']}</span>
                                         </label> </div>
-                                `)    
-                                x = x+1;
+                                    `) ;
+                                    x = x+1;
+                                }
+                                else{
+                                    $('#list_nomor_kendaraan_'+y).append(`<div  class="cat disable">
+                                        <label>
+                                            <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple" disabled>
+                                            <span>${j['kendaraan_nomor']}</span>
+                                        </label> </div>
+                                    `) ;
+                                    x = x+1;
+                                }
+                                
+
                             }
                         }
+                        y = y+1;
                     }
                 }
             })
@@ -291,6 +353,7 @@
                                 if(data.status){
                                     Swal.fire('Berhasil Input Petugas Sudah Selesai!', '', 'success');
                                     LoadLaporanTic();
+                                    LoadLaporanTicSelesai();
                                 }
                                 else{
                                     ShowNotif(data.data, 'red');
@@ -313,6 +376,96 @@
                 },
                 success: function(data) {
                     $('#Laporan').DataTable({
+                        "order":[[0, 'desc'],[2,'asc']],
+                        "destroy": true,
+                        "aaData": data.data,
+                        "scrollX": true,
+                        "columns":[
+                            { "data": "priority_id"},
+                            { "data": "laporan_id"},
+                            { "data": "laporan_created_timestamp"},
+                            { "data": "laporan_name"},
+                            { "data": "laporan_phone_no"},
+                            { "data": "ruas_name"},
+                            { "data": "laporan_km"},
+                            { "data": "laporan_jalur"},
+                            { "data": "laporan_vehicle_category"},
+                            { "data": "laporan_plat_no"},
+                            { "data": "kendala"},
+                            { "data": "laporan_description"},
+
+                        ],
+                        columnDefs: [
+                        {
+                            targets: 0,
+                            visible: false,
+                            searchable: false,
+                        },
+                        {
+                            targets: 1,
+                            visible: false,
+                            searchable: false,
+                        },
+                        {"targets": 12,
+                            "width":"270px",
+                            "data": "status_id",
+                            "render": function (data, type, row, meta){
+                                if (data == 3){
+                                    //laporan sudah assign petugas
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 4){
+                                    //laporan petugas sudah sampai
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 5){
+                                    //laporan done ditindak
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                }
+                                else if(data == 6){
+                                    //laporan done tanpa ditindak
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                }
+                                else{
+                                    //laporan baru
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button>';
+                                }        
+                            }                        
+                        },
+                        {
+                            targets: 11,
+                            render: function (data, type, row) {
+                                return type === 'display' && data.length > 30 ? data.substr(0, 30) + '…' : data;
+                            }
+                        }],
+                        fixedColumns: true,
+                        "createdRow": function (row, data, index) {
+                            if (data.priority === "High") {
+                                $(row).addClass('redRow');
+                            }else if(data.priority === "Medium"){
+                                $(row).addClass('orangeRow');
+                            }
+                        }
+                        
+                    });
+                }
+            });
+
+            setTimeout(function () {
+                LoadLaporanTic();
+            }, 3000);
+        }
+        function LoadLaporanTicSelesai(){
+            console.log('LoadLaporanTicSelesai');
+            $.ajax({
+                url: "{{url('/LoadLaporanTicSelesai')}}",
+                type: 'GET',
+                dataType: 'json',
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(data) {
+                    $('#Laporan_selesai').DataTable({
                         "order":[[0, 'desc'],[2,'desc']],
                         "destroy": true,
                         "aaData": data.data,
@@ -345,6 +498,7 @@
                         },
                         {"targets": 12,
                             "data": "status_id",
+                            "width":"270px",
                             "render": function (data, type, row, meta){
                                 if (data == 3){
                                     return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
@@ -361,29 +515,24 @@
                                 else{
                                     return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }        
-                            }                        
+                            }, 
+                            
                         },
                         {
                             targets: 11,
                             render: function (data, type, row) {
                                 return type === 'display' && data.length > 30 ? data.substr(0, 30) + '…' : data;
                             }
-                        }],
-                        "createdRow": function (row, data, index) {
-                            if (data.priority === "High") {
-                                $(row).addClass('redRow');
-                            }else if(data.priority === "Medium"){
-                                $(row).addClass('orangeRow');
-                            }
-                        }
+                        }],fixedColumns: true
+                        
                         
                     });
                 }
             });
 
             setTimeout(function () {
-                LoadLaporanTic();
-            }, 30000);
+                LoadLaporanTicSelesai();
+            }, 3000);
         }
     </script>
 @endsection

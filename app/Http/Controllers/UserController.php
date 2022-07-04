@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     public function index($id){
+        date_default_timezone_set("Asia/Bangkok");
         return view('auth.login')->with('id',$id);
     }
 
     public function loginpost(request $request){
+        date_default_timezone_set("Asia/Bangkok");
         $npp = $request->npp;
         $password = $request->password;
         $shift = $request->shift;
@@ -47,6 +49,7 @@ class UserController extends Controller
     }
 
     public function logout(){
+        date_default_timezone_set("Asia/Bangkok");
         Session::flush();
         return redirect('');
     }

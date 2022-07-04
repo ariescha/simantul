@@ -9,7 +9,7 @@
 .logo-pro{
 	display:block;
 	text-align:center;
-	background:#2f0042;
+	background:#2f0042 !important;
 }
 .menu-switcher-pro{
 	display:none;

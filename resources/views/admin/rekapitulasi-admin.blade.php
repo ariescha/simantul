@@ -47,7 +47,7 @@
                     </div>
                 </div> 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a type="button" href="{{route('rekap-admin-export')}}" style="width:100%" class="btn btn-primary">EXPORT DATA</a>
+                    <a type="button" onclick="exportdata()" style="width:100%" class="btn btn-primary">EXPORT DATA</a>
                 </div>  
                 
             
@@ -90,6 +90,29 @@
         $(document).ready(function() {
             LoadRekapitulasi();
         });
+
+        function exportdata(){
+            console.log('Export Data');
+            if($('#tanggal').val()){
+                var a = $('#tanggal').val();
+            }else{
+                var a = 0;
+            }
+
+            $.ajax({
+                url: "{{url('/rekapitulasi-admin/export_excel')}}"+"/"+a,
+                type: 'GET',
+                dataType: 'json',
+                error: function(e) {
+                    console.log(e);
+                    swal.fire('Gagal Export Data', '', 'error');
+                },
+                success: function(data) {
+                    swal.fire('Berhasil Export Data', '','success');
+                }
+            });
+            
+        }
 
         function LoadRekapitulasi() {
             console.log('Load Rekapitulasi');

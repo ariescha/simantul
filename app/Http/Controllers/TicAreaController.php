@@ -31,8 +31,24 @@ class TicAreaController extends Controller
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
                         ->leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
                         ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
-                        ->whereRaw('list_laporan.laporan_ruas_id = '.$ruasUser.' AND laporan_forward_to_tic_timestamp IS NOT NULL')
-                        ->where('list_laporan.status_id','>=',2)
+                        ->whereRaw('list_laporan.laporan_assigned_ruas_id = '.$ruasUser.' AND laporan_forward_to_tic_timestamp IS NOT NULL')
+                        ->whereRaw('list_laporan.status_id between 2 and 4')
+                        ->orderBy('laporan_id', 'DESC')
+                        ->get();
+        return response()->json(['status' => true, 'data' => $list_laporan]);
+    }
+
+    public function LoadLaporanTicSelesai(){
+        date_default_timezone_set("Asia/Bangkok");
+
+        $ruasUser = Session::get('ruas');
+        $list_laporan = DB::table('list_laporan')
+                        ->select('*')
+                        ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
+                        ->leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
+                        ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
+                        ->whereRaw('list_laporan.laporan_assigned_ruas_id = '.$ruasUser.' AND laporan_forward_to_tic_timestamp IS NOT NULL')
+                        ->whereRaw('list_laporan.status_id = 5 or list_laporan.status_id = 6')
                         ->orderBy('laporan_id', 'DESC')
                         ->get();
         return response()->json(['status' => true, 'data' => $list_laporan]);
@@ -46,14 +62,15 @@ class TicAreaController extends Controller
                                 ->leftjoin('management_jenis_kendaraan','kendaraan.kendaraan_jenis','=','management_jenis_kendaraan.jenis_kendaraan_id')
                                 ->where('data_petugas.status','=',1)
                                 ->where('kendaraan.ruas_id','=',$ruasUser)
-                                ->where('onduty','=',0)
-                                ->selectRaw('data_petugas_id,kendaraan_nomor,jenis_kendaraan')
+                                // ->where('onduty','=',0)
+                                ->selectRaw('data_petugas_id,kendaraan_nomor,jenis_kendaraan,onduty')
                                 ->get();
         $jenis_kendaraan = Management_Jenis_Kendaraan::All();
         $data = [
             'data_petugas_aktif' => $data_petugas_aktif,
             'jenis_kendaraan' => $jenis_kendaraan
         ];
+        
         return response()->json(['status' => true, 'data' => $data]);
     }
 

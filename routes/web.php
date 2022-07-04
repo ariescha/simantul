@@ -25,6 +25,7 @@ Route::post('loginpost','UserController@loginpost')->name('loginpost');
 //dashboard Command Center
 Route::get('dashboard-command-center','CommandCenterController@index')->name('dashboard-command-center');
 Route::get('LoadLaporan','CommandCenterController@LoadLaporan')->name('LoadLaporan');
+Route::get('LoadLaporanSelesai','CommandCenterController@LoadLaporanSelesai')->name('LoadLaporanSelesai');
 Route::post('ForwardTIC','CommandCenterController@ForwardTIC')->name('ForwardTIC');
 
 //rekapitulasi Command Center
@@ -47,7 +48,7 @@ Route::get('LoadChart/{id}','RekapitulasiAdminController@LoadChart')->name('Load
 Route::get('PilihRegion','RekapitulasiAdminController@PilihRegion')->name('PilihRegion');
 Route::get('dashboard-admin','AdminController@index')->name('dashboard-admin');
 Route::get('LoadLaporanAdmin','AdminController@LoadLaporanAdmin')->name('LoadLaporanAdmin');
-Route::get('rekapitulasi-admin/export_excel', 'RekapitulasiAdminController@ExportExcel')->name('rekap-admin-export');
+Route::get('rekapitulasi-admin/export_excel/{id}', 'RekapitulasiAdminController@ExportExcel')->name('rekap-admin-export');
 
 //Routing Dashboard CSO
 Route::get('dashboard-cso','CsoController@index')->name('dashboard-cso');
@@ -59,6 +60,7 @@ Route::post('change-priority','CsoController@changePriority')->name('change-prio
 //Dashboard TIC-Area
 Route::get('dashboard-tic-area','TicAreaController@index')->name('dashboard-tic-area');
 Route::get('LoadLaporanTic','TicAreaController@LoadLaporanTic')->name('LoadLaporanTic');
+Route::get('LoadLaporanTicSelesai','TicAreaController@LoadLaporanTicSelesai')->name('LoadLaporanTicSelesai');
 Route::get('LoadDataPetugas','TicAreaController@LoadDataPetugas')->name('LoadDataPetugas');
 Route::post('AssignPetugas','TicAreaController@AssignPetugas')->name('AssignPetugas');
 Route::post('PetugasArrived','TicAreaController@PetugasArrived')->name('PetugasArrived');
