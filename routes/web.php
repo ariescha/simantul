@@ -48,7 +48,7 @@ Route::get('LoadChart/{id}','RekapitulasiAdminController@LoadChart')->name('Load
 Route::get('PilihRegion','RekapitulasiAdminController@PilihRegion')->name('PilihRegion');
 Route::get('dashboard-admin','AdminController@index')->name('dashboard-admin');
 Route::get('LoadLaporanAdmin','AdminController@LoadLaporanAdmin')->name('LoadLaporanAdmin');
-Route::get('rekapitulasi-admin/export_excel/{id}', 'RekapitulasiAdminController@ExportExcel')->name('rekap-admin-export');
+Route::post('rekapitulasi-admin/export_excel', 'RekapitulasiAdminController@ExportExcel')->name('rekap-admin-export');
 
 //Routing Dashboard CSO
 Route::get('dashboard-cso','CsoController@index')->name('dashboard-cso');

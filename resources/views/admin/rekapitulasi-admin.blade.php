@@ -9,6 +9,8 @@
             <div class="row">
                 <div class="col-lg-8 pull-right">
                     <div class="col-lg-4 pull-right">
+                    <form action="{{route('rekap-admin-export')}}" method="post" enctype="multipart\form-data">
+                        {{ csrf_field()}}
                             <input id="tanggal" name="tanggal" class="date form-control" type="text" placeholder="dd-mm-yyyy" onchange="LoadRekapitulasi()">
                     </div>
                     <div class="col-lg-3 pull-right">
@@ -47,7 +49,9 @@
                     </div>
                 </div> 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a type="button" onclick="exportdata()" style="width:100%" class="btn btn-primary">EXPORT DATA</a>
+                    
+                    <button type="submit" style="width:100%" class="btn btn-primary">EXPORT DATA</button>
+                    </form>
                 </div>  
                 
             

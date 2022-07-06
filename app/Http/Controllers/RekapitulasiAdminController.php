@@ -36,9 +36,15 @@ class RekapitulasiAdminController extends Controller
         return response()->json(['status' => true, 'data' => $list_laporan]);
     }
 
-    public function ExportExcel($id){
-        
-        return Excel::download(new RekapExport($id), 'Rekapitulasi.xlsx');
+    public function ExportExcel(Request $request){
+        $a = 0;
+        if ($request->tanggal == null){
+            $a = 0;
+        }
+        else{
+            $a = $request->tanggal;
+        }
+        return Excel::download(new RekapExport($a), 'Rekapitulasi.xlsx');
     }
     public function LoadChart($id){
         $area_1 = [1,2,3,4,5,6,7,8,9,10,11];
