@@ -1,4 +1,7 @@
 @extends('master')
+@section('dashboard-cso')
+active
+@endsection
 <style>
     .redRow{
         background-color:#F5413D !important;
@@ -41,7 +44,6 @@
                                                                     <th>Jenis Kendala</th>
                                                                     <th>Keterangan</th>
                                                                     <th style="width:300px">Status</th>
-                                                                    <!-- <th>id</th> -->
                                                                 </tr>
                                                             </thead>
                                                             <tbody style="color:black">
@@ -433,7 +435,7 @@
                         $('#tambahPermintaan').modal('hide');
                         document.getElementById("form_add_laporan").reset();
                         Swal.fire('Berhasil Input Data Laporan', '', 'success');                            
-                        // LoadLaporanCso();
+                        LoadLaporanCso();
                     }else{
                         ShowNotif(data.data, 'red');
                         }
@@ -516,6 +518,7 @@
                         "destroy": true,
                         "aaData": data.data,
                         "scrollX": true,
+                        "bStateSave": true,
                         "columns":[
                             { "data": "priority_id"},
                             { "data": "laporan_created_timestamp"},
@@ -555,9 +558,9 @@
                 }
             });
 
-            // setTimeout(function () {
-            //     LoadLaporanCso();
-            // }, 30000);
+            setTimeout(function () {
+                LoadLaporanCso();
+            }, 3000);
         }
     </script>
 @endsection

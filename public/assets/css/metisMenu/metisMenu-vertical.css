@@ -64,10 +64,12 @@
 
 .sidebar-nav .metismenu a:hover,
 .sidebar-nav .metismenu a:focus,
-.sidebar-nav .metismenu a:active {
+.active {
     color: #f8f9fa;
     text-decoration: none;
     background: #2f0042;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
 }
 .sidebar-nav .metismenu li .icon-wrap{
 	margin-right:10px;

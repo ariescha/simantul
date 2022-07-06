@@ -1,5 +1,7 @@
 @extends('master')
-
+@section('dashboard-admin')
+active
+@endsection
 @section('content')
     <div class="breadcome-area">
         <div class="container-fluid">
@@ -9,8 +11,8 @@
 									
                                     <div class="row">
                                     <div class="table-responsive text-nowrap">
-                                    <table id="Laporan" class="table table-hover" style="background-color:white;width:100%">
-                                            <thead style="color:black">
+                                    <table id="Laporan" class="table table-hover" style="background-color:#2f0042;border:none;width:100%">
+                                            <thead style="color:white">
                                                 <tr style="text-align:center">
                                                     <th style="display:none;">Waktu Laporan</th>
                                                     <th>Nama</th>
@@ -469,6 +471,7 @@
                         "destroy": true,
                         "aaData": data.data,
                         "scrollX": true,
+                        "bStateSave": true,
                         "columns":[
                             { "data": "laporan_created_timestamp"},
                             { "data": "laporan_name"},
@@ -511,7 +514,7 @@
 
             setTimeout(function () {
                 LoadLaporanAdmin();
-            }, 30000);
+            }, 3000);
         }
     </script>
 @endsection

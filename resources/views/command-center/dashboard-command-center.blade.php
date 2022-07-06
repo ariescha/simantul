@@ -12,16 +12,18 @@
 
     }
 </style>
+@section('dashboard-cc')
+active
+@endsection
 @section('content')
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="breadcome-list">
-						
                     <div class="custom-tabs-line tabs-line-bottom left-aligned">
                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                       <li role="presentation" class="active"><a href="#sedang-proses" aria-controls="home" role="tab" data-toggle="tab">Sedang proses</a></li>
+                        <li role="presentation" class="active"><a href="#sedang-proses" aria-controls="home" role="tab" data-toggle="tab">Sedang proses</a></li>
                         <li role="presentation"><a href="#selesai-diteruskan" aria-controls="profile" role="tab" data-toggle="tab">Selesai diteruskan</a></li>
                         </ul>
                     </div>
@@ -102,7 +104,7 @@
                 <div class="col-lg-7">
                     
                     <select name="ruas" id="ruas" class="form-control">
-                        <option value="">Pilih ruas</option>
+                        <option value="" disabled>Pilih ruas</option>
                         @foreach($ruas as $r)
                         <option value="{{$r->ruas_id}}">{{$r->ruas_name}}</option>
                         @endforeach
@@ -120,8 +122,13 @@
 </div>
 
     <script type="text/javascript">
-        function forwardRuas(id){
+
+
+        function forwardRuas(id,ruas_id){
+
             document.getElementById("laporan_id").value = id;
+            document.getElementById("ruas").value = ruas_id;
+
         }
         function forwardtic(id){
                 console.log('Forward to TIC')
@@ -156,6 +163,7 @@
                                 if(data.status){
                                     Swal.fire('Berhasil Diteruskan Ke TIC Area!', '', 'success');
                                     LoadLaporan();
+                                    LoadLaporanSelesai();
                                 }
                                 else{
                                     ShowNotif(data.data, 'red');
@@ -249,19 +257,19 @@
                             { "data": "laporan_plat_no"},
                             { "data": "kendala"},
                             { "data": "laporan_description"},
-                            { "data": "laporan_id"},
+                            // { "data": "laporan_id"},
                         ],
                         "columnDefs": [
                             {"targets": 11,
                             "data": null,
                             "render": function (data, type, row, meta){
-                                return '<button id="forward-to-tic" class="btn rounded-pill btn-sm btn-warning" data-toggle="modal" data-target="#assign-ruas" onclick="forwardRuas(`'+row.laporan_id+'`)">Forward</button>';}
+                                return '<button id="forward-to-tic" class="btn rounded-pill btn-sm btn-warning" data-toggle="modal" data-target="#assign-ruas" onclick="forwardRuas(`'+row.laporan_id+'`,`'+row.ruas_id+'`)">Forward</button>';}
                             },
                             {
                             targets: 0,
                             visible: false,
                             searchable: false,
-                            }
+                            },
                         ],
                         "createdRow": function (row, data, index) {
                             if (data.priority === "High") {
@@ -276,8 +284,8 @@
             });
 
             setTimeout(function () {
-                // alert("Hello " + i);
-                // jsHello(--i);
+            //     // alert("Hello " + i);
+            //     // jsHello(--i);
                 LoadLaporan();
             }, 3000);
 

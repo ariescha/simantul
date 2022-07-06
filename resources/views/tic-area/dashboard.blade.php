@@ -1,4 +1,7 @@
 @extends('master')
+@section('dashboard-tic')
+active
+@endsection
 <style>
     .redRow{
         background-color:#F5413D !important;

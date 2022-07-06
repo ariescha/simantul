@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\ResponseFactory;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RekapExport;
 
 class RekapitulasiCCController extends Controller
 {
@@ -32,5 +34,16 @@ class RekapitulasiCCController extends Controller
         
         // dd($list_laporan);
         return response()->json(['status' => true, 'data' => $list_laporan]);
+    }
+
+    public function ExportExcel(Request $request){
+        $a = 0;
+        if($request->tanggal == null){
+            $a = 0;
+        }
+        else{
+            $a = $request->tanggal;
+        }
+        return Excel::download(new RekapExport($a), 'Rekapitulasi.xlsx');
     }
 }

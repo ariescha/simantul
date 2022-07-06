@@ -1,4 +1,7 @@
 @extends('master')
+@section('data-petugas')
+active
+@endsection
 @section('content')
 
 <style>
@@ -109,13 +112,10 @@
         if(txt_jenis == "Derek"){
             $('#form_'+id_jenis).append(`<div class="col-lg-12 element_${id_jenis}" id="element_${id_jenis}_${id_kendaraan}">
                                                 <div class="col-lg-1">
-                                                    <input type="text" style="width:40px" value="${kode_baru}">
-                                                    
-                                                    <input type="hidden" name="nomor_kendaraan[${id_jenis}][${id_kendaraan}]" value="${kode_baru}">
+                                                    <input type="text" style="width:40px" name="nomor_kendaraan[${id_jenis}][${id_kendaraan}]" value="">
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <input type="text"  name="nama_petugas_1[${id_jenis}][${id_kendaraan}]" id="nama_petugas_1_${id_jenis}_${id_kendaraan}" >
-                                                    
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <input type="text" name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="nama_petugas_2_${id_jenis}_${id_kendaraan}" >
@@ -187,11 +187,11 @@
             
         })
     }
-    Swal.fire({
-        title: 'Success!',
-        text: 'Berhasil menambahkan!',
-        icon: 'success',
-        confirmButtonText: 'Cool'
-        });
+    // Swal.fire({
+    //     title: 'Success!',
+    //     text: 'Berhasil menambahkan!',
+    //     icon: 'success',
+    //     confirmButtonText: 'Cool'
+    //     });
 </script>
 @endsection

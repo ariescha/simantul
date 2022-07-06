@@ -119,28 +119,28 @@
                     <ul class="metismenu" id="menu1">
                       @if($role == 1)
                         <li>
-                            <a class="" id="home-button" href="{{route('dashboard-cso')}}"  aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
+                            <a class="@yield('dashboard-cso')" id="home-button" href="{{route('dashboard-cso')}}"  aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                       @elseif($role == 2)
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
+                            <a class="@yield('dashboard-cc')" id="home-button" href="{{route('dashboard-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                         <li>
-                            <a class="" id="home-button" href="{{route('rekapitulasi-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
+                            <a class="@yield('rekap-cc')" id="home-button" href="{{route('rekapitulasi-command-center')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
                         </li> 
                       @elseif($role == 3)
                       <li>
-                            <a class="" id="home-button" href="{{route('Petugas')}}" aria-expanded="false"><i class="fa fa-lg fa-user"></i> <span class="mini-click-non">Data Petugas</span></a>
+                            <a class="@yield('data-petugas')" id="home-button" href="{{route('Petugas')}}" aria-expanded="false"><i class="fa fa-lg fa-user"></i> <span class="mini-click-non">Data Petugas</span></a>
                         </li>
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
+                            <a class="@yield('dashboard-tic')" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                       @elseif($role == 4)
                       <li>
-                            <a class="" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
+                            <a class="@yield('dashboard-admin')" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
                         </li>
                         <li>
-                            <a class="" id="home-button" href="{{route('rekapitulasi-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
+                            <a class="@yield('rekap-admin')" id="home-button" href="{{route('rekapitulasi-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-line-chart"></i> <span class="mini-click-non">Rekapitulasi</span></a>
                         </li> 
                       @endif
                         
