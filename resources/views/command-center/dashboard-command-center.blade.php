@@ -122,10 +122,10 @@ active
 </div>
 
     <script type="text/javascript">
-
+        var old_row = 0;
 
         function forwardRuas(id,ruas_id){
-
+            
             document.getElementById("laporan_id").value = id;
             document.getElementById("ruas").value = ruas_id;
 
@@ -175,13 +175,24 @@ active
                 });
             }
 
+        
 
         $(document).ready(function() {
             LoadLaporan();
             LoadLaporanSelesai();
             $('#sedang-proses').tab('show');
             // setInterval(LoadLaporan, 3000);
+            
+            // const playSound = (url) => {
+            //             const audio = new Audio(url);
+            //             audio.play();
+            //             }
         });
+
+        // const button = document.querySelector('forward-to-tic');
+        // button.addEventListener('click', () => {
+        // console.log(button);
+        // playSound('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')});
 
         // setInterval(LoadLaporan, 3000);
         function LoadLaporanSelesai(){
@@ -279,6 +290,17 @@ active
                             }
                         }
                     });
+                    var new_row = data.data.length;
+                    // if(new_row > old_row && old_row != 0){
+                    //     const playSound = (url) => {
+                    //     const audio = new Audio(url);
+                    //     audio.play();}
+                    //     playSound('https://www.mboxdrive.com/tenong.mp3');
+                    //     old_row = new_row;
+                    // }
+                    // else{
+                    //     old_row = new_row;
+                    // }
                     // $('#loader').hide();
                 }
             });
