@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kendaraan;
-use App\Models\Management_Karyawan;
+use App\Models\Master_Petugas;
 use App\Models\Data_Petugas;
 use App\Models\Management_Jenis_Kendaraan;
 use DB;
@@ -21,11 +21,12 @@ class PetugasController extends Controller
                         ->where('kendaraan.ruas_id','=',1)
                         ->select( 'npp_petugas_1','npp_petugas_2','kendaraan_nomor','kendaraan_jenis','petugas.kendaraan_id','management_jenis_kendaraan.jenis_kendaraan')->get();
         $kendaraan = Management_Jenis_Kendaraan::All();
-        $karyawan = Management_Karyawan::All();
+        $petugas = Master_Petugas::All();
+        
         $data=[
             'data_petugas' => $data_petugas,
             'kendaraan' => $kendaraan,
-            'karyawan' => $karyawan
+            'petugas' => $petugas
         ];
         return view('tic-area.petugas')->with('data',$data);
     }
@@ -88,8 +89,29 @@ class PetugasController extends Controller
         return;
     }
 
+
+
     public function insert(Request $request){
         date_default_timezone_set("Asia/Bangkok");
+        
+        ////////////////////////// Start Check Duplicate /////////////////////////
+        $listnama = array();
+        foreach($request->nama_petugas_1 as $key => $value){
+            foreach($value as $ke => $v){
+                array_push($listnama,$v);
+            }
+        }
+        foreach($request->nama_petugas_2 as $key => $value){
+            foreach($value as $ke => $v){
+                array_push($listnama,$v);
+            }
+        }
+        if(count(array_unique($listnama))<count($listnama)){
+            return response()->json(['status' => false,'data' => 'Gagal, ada data duplikat!']);
+        }
+        ////////////////////////// End Check Duplicate /////////////////////////
+
+
         $nomor_kendaraan = $request->nomor_kendaraan;
         $list_kendaraan_view = array();
         foreach($nomor_kendaraan as $key => $value){

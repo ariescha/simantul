@@ -148,26 +148,6 @@ active
             }, 3000);
         }
         
-        // function submit_form_area(){
-        //     $.ajax({
-        //                     url:"{{url('/PilihRegion')}}",
-        //                     method:"POST",
-        //                     headers: {
-        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //                     },
-        //                     data:$('#form-area').serialize(),
-        //                     dataType:'json',
-        //                     error: function(e) {
-        //                         console.log(e);
-        //                         console.log('Forward to TIC Error');
-        //                     },
-        //                     success:function(data)
-        //                     {
-        //                         console.log(data);
-        //                         LoadChart();
-        //                     }
-        //                 });
-        // }
         function LoadChart() {
             var a = $('#area').val();
             console.log(a);

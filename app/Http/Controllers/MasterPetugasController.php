@@ -31,29 +31,53 @@ class MasterPetugasController extends Controller
     public function addPetugas(Request $request){
         date_default_timezone_set("Asia/Bangkok");
 
-        Master_Petugas::create([
-            'nik_petugas'               => $request->tambah_nik_petugas,
-            'nama_petugas'              => $request->tambah_nama_petugas,
-            'jenis_petugas'             => $request->tambah_spesialisasi,
-            'ruas_id'                   => $request->tambah_ruas,
-        ]);
+
+        $dataPetugas = DB::table('management_petugas')->where('nik_petugas',$request->tambah_nik_petugas)->first();
         
-        return response()->json(['status' =>true, 'data' => null ]);
+        if (is_null($dataPetugas)){
+            Master_Petugas::create([
+                'nik_petugas'               => $request->tambah_nik_petugas,
+                'nama_petugas'              => $request->tambah_nama_petugas,
+                'jenis_petugas'             => $request->tambah_spesialisasi,
+                'ruas_id'                   => $request->tambah_ruas,
+            ]);
+            return response()->json(['status' =>true, 'data' => null ]);
+        }else{
+            return response()->json(['status' =>false, 'data' => 'Gagal, NIK sudah terdaftar!' ]);
+        } 
     }
 
     public function editPetugas(Request $request){
         date_default_timezone_set("Asia/Bangkok");
 
-        // dd($request);
-        DB::table('management_petugas')->where('nik_petugas',$request->nik_petugas)
-                ->update([
-                    'nik_petugas'               => $request->edit_nik_petugas,
-                    'nama_petugas'              => $request->edit_nama_petugas,
-                    'jenis_petugas'             => $request->edit_spesialisasi,
-                    'ruas_id'                   => $request->edit_ruas,
-                ]);
-        
-        return response()->json(['status' =>true, 'data' => null ]);
+        if($request->nik_petugas==$request->edit_nik_petugas){
+            DB::table('management_petugas')->where('nik_petugas',$request->nik_petugas)
+            ->update([
+                'nik_petugas'               => $request->edit_nik_petugas,
+                'nama_petugas'              => $request->edit_nama_petugas,
+                'jenis_petugas'             => $request->edit_spesialisasi,
+                'ruas_id'                   => $request->edit_ruas,
+            ]);
+
+            return response()->json(['status' =>true, 'data' => null ]);
+        }else{
+            $dataPetugas = DB::table('management_petugas')->where('nik_petugas',$request->edit_nik_petugas)->first();
+
+            if (is_null($dataPetugas)){
+            // dd($request);
+                DB::table('management_petugas')->where('nik_petugas',$request->nik_petugas)
+                        ->update([
+                            'nik_petugas'               => $request->edit_nik_petugas,
+                            'nama_petugas'              => $request->edit_nama_petugas,
+                            'jenis_petugas'             => $request->edit_spesialisasi,
+                            'ruas_id'                   => $request->edit_ruas,
+                        ]);
+            
+                return response()->json(['status' =>true, 'data' => null ]);
+            }else{
+                return response()->json(['status' =>false, 'data' => 'Gagal Update, NIK sudah terdaftar!' ]);
+            }
+        } 
     }
 
     public function dropPetugas(Request $request){

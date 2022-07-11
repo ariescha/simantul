@@ -24,7 +24,7 @@ active
                     <div class="breadcome-list">
                     
                             <div class="row">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-petugas">Tambah Petugas</button><br><br><br>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-petugas" onclick="resetForm()">Tambah Petugas</button><br><br><br>
                                 <div class="table-responsive text-nowrap">
                                     <table id="Petugas" class="table table-hover" style="background-color:#2f0042;color:white;border:none; width:100%">
                                         <thead>
@@ -170,6 +170,9 @@ active
 
     <script type="text/javascript">
         var old_row = 0;
+        function resetForm(){
+            document.getElementById("form-tambah-petugas").reset();
+        }
 
         function editPetugas(nik,nama,ruas,spesialisasi){
            console.log(nik,nama,ruas,spesialisasi);
@@ -207,7 +210,8 @@ active
                         LoadPetugas();
                     }
                     else{
-                        ShowNotif(data.data, 'red');
+                        Swal.fire(data.data, '', 'error');
+                        // ShowNotif(data.data, 'red');
                     }
                 }
             })                        
@@ -237,7 +241,9 @@ active
                         LoadPetugas();
                     }
                     else{
-                        ShowNotif(data.data, 'red');
+                        Swal.fire(data.data, '', 'error');
+
+                        // ShowNotif(data.data, 'red');
                     }
                 }
             })                        
@@ -348,7 +354,7 @@ active
             setTimeout(function () {
             //     // alert("Hello " + i);
             //     // jsHello(--i);
-                LoadPetugas();
+                // LoadPetugas();
             }, 3000);
 
         }

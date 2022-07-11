@@ -45,12 +45,32 @@ active
                                                     @endif
                                                     <input type="hidden" name="nomor_kendaraan[{{$k}}][{{$i}}]" name="nomor_kendaraan_[{{$k}}]_[{{$i}}]" value="{{$value->kendaraan_nomor}}">
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text"  name="nama_petugas_1[{{$k}}][{{$i}}]" id="nama_petugas_1_{{$k}}_{{$i}}" value="{{$value->npp_petugas_1}}">
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_1[{{$k}}][{{$i}}]" id="search_petugas_1_{{$k}}_{{$i}}" class="form-control" style="width:100%">
+                                                        <option value="" disabled>Pilih petugas 1</option>
+                                                        <option value="{{$value->npp_petugas_1}}" selected>{{$value->npp_petugas_1}}</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                @if($p->nama_petugas !== $value->npp_petugas_1)
+                                                                <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                     
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text" name="nama_petugas_2[{{$k}}][{{$i}}]" id="nama_petugas_2_{{$k}}_{{$i}}" value="{{$value->npp_petugas_2}}">
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_2[{{$k}}][{{$i}}]" id="search_petugas_2_{{$k}}_{{$i}}" class="form-control" style="width:100%">
+                                                        <option value="" disabled>Pilih petugas 2</option>
+                                                        <option value="{{$value->npp_petugas_2}}" selected>{{$value->npp_petugas_2}}</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                @if($p->nama_petugas !== $value->npp_petugas_2)
+                                                                    <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <button type="button" class="icon" id="btn_add_{{$k}}_{{$i}}" onclick="add_field('{{$k}}','{{$i}}','{{$value->kendaraan_nomor}}','{{$v->jenis_kendaraan}}')" style="background-color:transparent;border:none;" title="Tambah data"><img src="assets/img/icon/icon-add.png" alt="" style="width:20px"></button>
@@ -80,15 +100,22 @@ active
             lala[i] = document.getElementsByClassName("element_"+i).length;
         }
         for(var j=0; j<jumlah_kendaraan; j++){
+
             if(document.getElementById("btn_drop_"+j+"_0")){
                 document.getElementById("btn_drop_"+j+"_0").remove();
             }
             for(var k=0; k<lala[j]-1; k++){
+                $("#search_petugas_1_"+j+"_"+k).select2();
+                $("#search_petugas_2_"+j+"_"+k).select2();
+
                 document.getElementById("btn_add_"+j+"_"+k).style.display = "none";
                 if(k>0){
                     document.getElementById("btn_drop_"+j+"_"+k).style.display = "none";
                 }
             }
+            for(var k=0; k<lala[j]; k++){
+                $("#search_petugas_1_"+j+"_"+k).select2();
+                $("#search_petugas_2_"+j+"_"+k).select2();}
         }
     });
 
@@ -114,37 +141,68 @@ active
                                                 <div class="col-lg-1">
                                                     <input type="text" style="width:40px" name="nomor_kendaraan[${id_jenis}][${id_kendaraan}]" value="">
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text"  name="nama_petugas_1[${id_jenis}][${id_kendaraan}]" id="nama_petugas_1_${id_jenis}_${id_kendaraan}" >
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_1[${id_jenis}][${id_kendaraan}]" id="search_petugas_1_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">
+                                                        <option value="" disabled selected>Pilih petugas 1</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                    <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>                                                
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text" name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="nama_petugas_2_${id_jenis}_${id_kendaraan}" >
-                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="search_petugas_2_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">
+                                                        <option value="" disabled selected>Pilih petugas 2</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                    <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>                                                </div>
                                                 <div class="col-lg-2">
                                                     <button type="button" class="icon" id="btn_add_${id_jenis}_${id_kendaraan}" onclick="add_field('${id_jenis}','${id_kendaraan}','${kode_baru}','${txt_jenis}')" style="background-color:transparent;border:none;" title="Tambah data"><img src="assets/img/icon/icon-add.png" alt="" style="width:20px"></button>
                                                     <button type="button" class="icon" id="btn_drop_${id_jenis}_${id_kendaraan}" onclick="drop_field('${id_jenis}','${id_kendaraan}','${kode_baru}','${txt_jenis}')" style="background-color:transparent;border:none;"  title="Hapus data"><img src="assets/img/icon/icon-drop.png" alt="" style="width:20px"></button>
                                                 </div>
                                                
                                             </div>`);
+                $("#search_petugas_1_"+id_jenis+"_"+id_kendaraan).select2();
+                $("#search_petugas_2_"+id_jenis+"_"+id_kendaraan).select2();
+
+
         }else{
             $('#form_'+id_jenis).append(`<div class="col-lg-12 element_${id_jenis}" id="element_${id_jenis}_${id_kendaraan}">
                                                 <div class="col-lg-1">
                                                     <h5 style="color:white">${kode_baru}</h5>
                                                     <input type="hidden" name="nomor_kendaraan[${id_jenis}][${id_kendaraan}]" value="${kode_baru}">
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text"  name="nama_petugas_1[${id_jenis}][${id_kendaraan}]" id="nama_petugas_1_${id_jenis}_${id_kendaraan}" >
-                                                    
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_1[${id_jenis}][${id_kendaraan}]" id="search_petugas_1_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">
+                                                        <option value="" disabled selected>Pilih petugas 1</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                    <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <div class="col-lg-2">
-                                                    <input type="text" name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="nama_petugas_2_${id_jenis}_${id_kendaraan}" >
-                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="search_petugas_2_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">
+                                                        <option value="" disabled selected>Pilih petugas 2</option>
+                                                        @foreach($data['petugas'] as $p)
+                                                            @if($p->jenis_petugas == $v->jenis_kendaraan_id)
+                                                                    <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>                                                </div>
                                                 <div class="col-lg-2">
                                                     <button type="button" class="icon" id="btn_add_${id_jenis}_${id_kendaraan}" onclick="add_field('${id_jenis}','${id_kendaraan}','${kode_baru}','${txt_jenis}')" style="background-color:transparent;border:none;" title="Tambah data"><img src="assets/img/icon/icon-add.png" alt="" style="width:20px"></button>
                                                     <button type="button" class="icon" id="btn_drop_${id_jenis}_${id_kendaraan}" onclick="drop_field('${id_jenis}','${id_kendaraan}','${kode_baru}','${txt_jenis}')" style="background-color:transparent;border:none;"  title="Hapus data"><img src="assets/img/icon/icon-drop.png" alt="" style="width:20px"></button>
                                                 </div>
                                                
                                             </div>`);
+                $("#search_petugas_1_"+id_jenis+"_"+id_kendaraan).select2();
+                $("#search_petugas_2_"+id_jenis+"_"+id_kendaraan).select2();
         }
         
     }
@@ -181,7 +239,9 @@ active
                                     Swal.fire('Berhasil Update Petugas!', '', 'success');
                                 }
                                 else{
-                                    ShowNotif(data.data, 'red');
+                                    Swal.fire(data.data, '', 'error');
+
+                                    // ShowNotif(data.data, 'red');
                                 }
                             }
             

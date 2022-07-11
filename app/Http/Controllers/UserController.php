@@ -31,7 +31,7 @@ class UserController extends Controller
                 }else if($user->role == 2 && $request->role_id == 2){
                     return redirect('dashboard-command-center');
                 }else if($user->role == 3 && $request->role_id == 3){
-                    return redirect('dashboard-tic-area');
+                    return redirect('Petugas');
                 }else if($user->role == 4 && $request->role_id == 4){
                     return redirect('dashboard-admin');
                 }else{
