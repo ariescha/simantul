@@ -36,7 +36,14 @@ Route::post('rekapitulasi-commandcenter/export_excel','RekapitulasiCCController@
 
 //Petugas TIC
 Route::get('Petugas','PetugasController@index')->name('Petugas');
+Route::get('master-petugas','MasterPetugasController@index')->name('master-petugas');
 Route::post('update-petugas','PetugasController@insert')->name('update-petugas');
+Route::get('LoadPetugas','MasterPetugasController@LoadPetugas')->name('LoadPetugas');
+Route::post('EditPetugas','MasterPetugasController@EditPetugas')->name('EditPetugas');
+Route::post('tambahPetugas','MasterPetugasController@addPetugas')->name('tambahPetugas');
+Route::post('dropPetugas','MasterPetugasController@dropPetugas')->name('dropPetugas');
+
+
 
 
 Auth::routes();

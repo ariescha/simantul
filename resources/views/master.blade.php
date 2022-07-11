@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- nalika Icon CSS
 		============================================ -->
     <link rel="stylesheet" href="assets/css/nalika-icon.css">
@@ -134,6 +135,9 @@
                         </li>
                       <li>
                             <a class="@yield('dashboard-tic')" id="home-button" href="{{route('dashboard-tic-area')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a class="@yield('master-petugas')" id="home-button" href="{{route('master-petugas')}}" aria-expanded="false"><i class="fa fa-lg fa-users-gear"></i> <span class="mini-click-non">Master Petugas</span></a>
                         </li>
                       @elseif($role == 4)
                       <li>
