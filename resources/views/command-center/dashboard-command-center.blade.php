@@ -251,6 +251,17 @@ active
                 },
                 success: function(data) {
                     console.log(data.data);
+                    var new_row = data.data.length;
+                    if(new_row > old_row && old_row != 0){
+                        const playSound = (url) => {
+                        const audio = new Audio(url);
+                        audio.play();}
+                        playSound('https://www.mboxdrive.com/tenong-[AudioTrimmer.com].mp3');
+                        old_row = new_row;
+                    }
+                    else{
+                        old_row = new_row;
+                    }
                     $('#Laporan').DataTable({
                         "destroy": true,
                         "aaData": data.data,
@@ -290,17 +301,7 @@ active
                             }
                         }
                     });
-                    var new_row = data.data.length;
-                    // if(new_row > old_row && old_row != 0){
-                    //     const playSound = (url) => {
-                    //     const audio = new Audio(url);
-                    //     audio.play();}
-                    //     playSound('https://www.mboxdrive.com/tenong.mp3');
-                    //     old_row = new_row;
-                    // }
-                    // else{
-                    //     old_row = new_row;
-                    // }
+                    
                     // $('#loader').hide();
                 }
             });

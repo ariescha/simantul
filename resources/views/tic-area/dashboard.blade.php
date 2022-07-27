@@ -202,6 +202,17 @@ active
                     <input type="hidden" id="laporan_id" type="text" name="laporan_id">
                 `);
             })
+
+            $('#Laporan').on('click', 'tr', function(){
+                var table = $('#Laporan').DataTable();
+                if(table.row(this).data().status_id == 3){
+                    $('#forward').modal("show");
+                    LoadDataPetugas(table.row(this).data().laporan_id);
+                }
+                else{
+                    
+                }
+            })
         });
         function LoadDataPetugas(id){
             console.log('Load Data Petugas');
@@ -241,16 +252,14 @@ active
                                     x = x+1;
                                 }
                                 else{
-                                    $('#list_nomor_kendaraan_'+y).append(`<div  class="cat disable">
+                                    $('#list_nomor_kendaraan_'+y).append(`<div  class="cat comedy">
                                         <label>
-                                            <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple" disabled>
+                                            <input type="checkbox" name="data_petugas[${x}]" value="${j['data_petugas_id']}" style="border:1px solid #5E0F80;width:140px" class="btn btn-purple" checked>
                                             <span>${j['kendaraan_nomor']}</span>
                                         </label> </div>
                                     `) ;
                                     x = x+1;
                                 }
-                                
-
                             }
                         }
                         y = y+1;
@@ -347,14 +356,14 @@ active
                             dataType:'json',
                             error: function(e) {
                                 console.log(e);
-                                console.log('Error Set Petugas Sudah Selesai');
-                                Swal.fire('Gagal Input Petugas Sudah Selesai!', '', 'error')
+                                console.log('Error Set Laporan Sudah Selesai di tindak');
+                                Swal.fire('Gagal Input Laporan Sudah Selesai di tindak!', '', 'error')
                                 // ShowNotif('Forward to TIC Gagal!', 'red');
                             },
                             success:function(data)
                             {
                                 if(data.status){
-                                    Swal.fire('Berhasil Input Petugas Sudah Selesai!', '', 'success');
+                                    Swal.fire('Berhasil Laporan Sudah Selesai di tindak!', '', 'success');
                                     LoadLaporanTic();
                                     LoadLaporanTicSelesai();
                                 }

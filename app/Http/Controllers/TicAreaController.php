@@ -15,10 +15,13 @@ class TicAreaController extends Controller
     //
     public function index(){
         date_default_timezone_set("Asia/Bangkok");
-
-
-         return view('tic-area.dashboard');
-        
+        $role = Session::get('role');
+        if($role == '3'){
+            return view('tic-area.dashboard');
+        }else{
+            Session::flush();
+            return redirect('');
+        }
     }
     
     //ajax
@@ -83,6 +86,14 @@ class TicAreaController extends Controller
         }
         $laporan = List_Laporan::where('laporan_id','=',$request->laporan_id)->first();
         if($laporan){
+            if($laporan->data_petugas_id != null){
+                $list_petugas_lama = json_decode($laporan->data_petugas_id);
+                foreach($list_petugas_lama as $petugas_lama){
+                    $petugas = Data_Petugas::where('data_petugas_id','=',$petugas_lama)->first();
+                    $petugas -> onduty = 0;
+                    $petugas -> save();
+                }
+            }
             $laporan -> data_petugas_id = $list_petugas;
             $laporan -> laporan_forward_to_petugas_timestamp = date('Y-m-d H:i:s');
             $laporan -> status_id = 3;
