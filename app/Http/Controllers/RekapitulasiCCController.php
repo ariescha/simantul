@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\ResponseFactory;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\RekapExport;
+use App\Exports\RekapExportCC;
 
 class RekapitulasiCCController extends Controller
 {
@@ -44,6 +44,6 @@ class RekapitulasiCCController extends Controller
         else{
             $a = $request->tanggal;
         }
-        return Excel::download(new RekapExport($a), 'Rekapitulasi.xlsx');
+        return Excel::download(new RekapExportCC($a), 'Rekapitulasi.xlsx');
     }
 }
