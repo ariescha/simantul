@@ -13,7 +13,7 @@ class CsoController extends Controller
     public function index(){
         date_default_timezone_set("Asia/Bangkok");
 
-        $managementRuas = DB::table('management_ruas')->get();
+        $managementRuas = DB::table('management_ruas')->where('ruas_id','!=',0)->orderBy('ruas_name','ASC')->get();
         $managementJenisKendala = DB::table('management_jenis_kendala')->get();
 
 
@@ -32,6 +32,7 @@ class CsoController extends Controller
                         ->leftjoin('status_laporan_reference','list_laporan.status_id','=','status_laporan_reference.status_id')
                         ->orderBy('laporan_id', 'DESC')
                         ->get();
+        // dd($list_laporan);
         return response()->json(['status' => true, 'data' => $list_laporan]);
     }
 

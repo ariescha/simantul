@@ -20,7 +20,7 @@
     <!-- Bootstrap CSS
 		============================================ -->
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
-	<!-- nalika Icon CSS
+	  <!-- nalika Icon CSS
 		============================================ -->
     <link rel="stylesheet" href="{{asset('assets/css/nalika-icon.css')}}">
     <!-- owl.carousel CSS

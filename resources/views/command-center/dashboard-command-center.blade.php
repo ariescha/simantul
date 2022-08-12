@@ -84,7 +84,7 @@ active
                             </div> 
                         </div>
                     </div>
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="assign-ruas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -99,11 +99,10 @@ active
             {{csrf_field()}}
                 <input type="hidden" id="laporan_id" name="laporan_id">
                 <div class="col-lg-2">
-                    <label for="ruas" class="form-label" style="padding-top:20px">Ruas</label>
+                    <label for="ruas" class="form-label">Ruas</label>
                 </div>
                 <div class="col-lg-7">
-                    
-                    <select name="ruas" id="ruas" class="form-control">
+                    <select name="ruas" id="ruas" class="form-control" style="width:100%;">
                         <option value="" disabled>Pilih ruas</option>
                         @foreach($ruas as $r)
                         <option value="{{$r->ruas_id}}">{{$r->ruas_name}}</option>
@@ -111,8 +110,7 @@ active
                     </select> 
                 </div>
             </form>
-                
-                <br><br><br>
+                <br>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="forwardtic()">Assign Ruas</button>
@@ -120,14 +118,20 @@ active
     </div>
   </div>
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
     <script type="text/javascript">
         var old_row = 0;
-
+        $( document ).ready(function() {
+        
+            $('#ruas').select2({
+                dropdownParent : $('#assign-ruas')
+            });});
         function forwardRuas(id,ruas_id){
             
             document.getElementById("laporan_id").value = id;
-            document.getElementById("ruas").value = ruas_id;
+            // document.getElementById("ruas").value = ruas_id;
+            $("#ruas").val(ruas_id).change();
 
         }
         function forwardtic(id){

@@ -16,6 +16,7 @@
 active
 @endsection
 @section('content')
+
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">

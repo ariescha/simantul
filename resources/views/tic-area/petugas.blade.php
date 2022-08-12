@@ -11,6 +11,15 @@ active
         display: inline-block;
     }
 </style>
+
+    <div class="col-lg-3">
+        <select name="test" id="test" class="form-control" style="width:100%">
+        <option value="" selected disabled>Pilih petugas 1</option>
+        <option value="1">1</option>
+        <option value="2">2</option>                                                        
+        </select>                                          
+    </div>
+
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
@@ -149,7 +158,8 @@ active
                                                                     <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>                                                
+                                                    </select> 
+                                                                                              
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <select name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="search_petugas_2_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">
@@ -184,7 +194,7 @@ active
                                                                     <option value="{{$p->nama_petugas}}">{{$p->nama_petugas}}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>
+                                                    </select> 
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <select name="nama_petugas_2[${id_jenis}][${id_kendaraan}]" id="search_petugas_2_${id_jenis}_${id_kendaraan}" class="form-control" style="width:100%">

@@ -13,7 +13,7 @@ class MasterPetugasController extends Controller
 {
     public function index(){
         $kendaraan = Management_Jenis_Kendaraan::all();
-        $ruas = Management_Ruas::all();
+        $ruas = DB::table('management_ruas')->where('ruas_id','!=',0)->orderBy('ruas_name','ASC')->get();
 
         return view('tic-area.master-petugas')->with(['kendaraan' => $kendaraan, 'ruas' => $ruas]);
     }

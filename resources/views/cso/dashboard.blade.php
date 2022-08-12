@@ -12,9 +12,21 @@ active
         background-color: #EDCA10 !important;
         color: black !important;
     }
+    .form-control-cso {
+        background-color: #FFFFFF;
+        background-image: none;
+        border: 1px solid #aaa !important;
+        border-radius: 5px;
+        color: inherit;
+        display: block;
+        padding: 6px 12px;
+        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+        width: 100%;
+    }
 </style>
 <?php $user_id = Session::get('user_id'); ?>
 @section('content')
+    
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">
@@ -82,7 +94,7 @@ active
                         <label for="nama" class="form-label">Nama</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Nama"
                             id="nama" 
                             name="nama"
@@ -94,7 +106,7 @@ active
                         <label for="no_hp" class="form-label">No Handphone</label>
                         <input 
                             type="number" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="No Handphone"
                             id="no_hp" 
                             name="no_hp"
@@ -107,7 +119,7 @@ active
                         <label for="jenis_mobil" class="form-label">Jenis Mobil</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Jenis Mobil"
                             id="jenis_mobil" 
                             name="jenis_mobil"
@@ -119,7 +131,7 @@ active
                         <label for="plat_nomor" class="form-label">Plat Nomor</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Plat Nomor"
                             id="plat_nomor" 
                             name="plat_nomor"
@@ -130,7 +142,7 @@ active
                     </div>
                     <div class="form-group">
                         <label for="jenis_kendala" class="form-label">Jenis Kendala</label>
-                        <select name="jenis_kendala" id="jenis_kendala" class="form-control" required>
+                        <select name="jenis_kendala" id="jenis_kendala" class="form-control-cso" required>
                             <option value="" disabled selected>Pilih Kendala</option>
                             @foreach($managementJenisKendala as $p)
                             <option value="{{ $p->kendala_id }}">{{ $p->kendala }}</option>
@@ -143,8 +155,8 @@ active
                     
                     <div class="form-group">
                         <label for="ruas" class="form-label">Ruas</label>
-                        <select name="ruas" id="ruas" class="form-control" required>
-                            <option value="" disabled selected>Pilih Ruas</option>
+                        <select name="ruas" id="ruas" class="form-control-cso" style="width:100%" required>
+                            <option value="" selected disabled>Pilih Ruas</option>
                             @foreach($managementRuas as $p)
                             <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
 		                    @endforeach
@@ -154,7 +166,7 @@ active
                         <label for="km" class="form-label">KM</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="60:200"
                             id="km" 
                             name="km"
@@ -164,7 +176,7 @@ active
                     </div>
                     <div class="form-group">
                         <label for="jalur" class="form-label">Jalur</label>
-                        <select name="jalur" id="jalur" class="form-control" required>
+                        <select name="jalur" id="jalur" class="form-control-cso" required>
                             <option value="" disabled selected>Pilih Jalur</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -179,7 +191,7 @@ active
                             name="keterangan" 
                             id="keterangan" 
                             rows="10" 
-                            class="form-control"
+                            class="form-control-cso"
                             required></textarea>
                     </div>
                 </div>
@@ -205,7 +217,7 @@ active
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Permintaan Baru</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Laporan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -220,7 +232,7 @@ active
                         <label for="laporanid" class="form-label">Laporan ID</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Laporan ID"
                             id="laporanid" 
                             name="laporanid"
@@ -231,7 +243,7 @@ active
                         <label for="priority" class="form-label">Prioritas</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Prioritas"
                             id="priority" 
                             name="priority"
@@ -242,7 +254,7 @@ active
                         <!-- <label for="priorityid" class="form-label">Prioritas</label> -->
                         <input 
                             type="hidden" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Prioritas"
                             id="priorityid" 
                             name="priorityid"
@@ -253,7 +265,7 @@ active
                         <label for="editnama" class="form-label">Nama</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Nama"
                             id="editnama" 
                             name="editnama"
@@ -265,7 +277,7 @@ active
                         <label for="editno_hp" class="form-label">No Handphone</label>
                         <input 
                             type="number" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="No Handphone"
                             id="editno_hp" 
                             name="editno_hp"
@@ -277,7 +289,7 @@ active
                         <label for="editjenis_mobil" class="form-label">Jenis Mobil</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Jenis Mobil"
                             id="editjenis_mobil" 
                             name="editjenis_mobil"
@@ -290,7 +302,7 @@ active
                         <label for="editplat_nomor" class="form-label">Plat Nomor</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Plat Nomor"
                             id="editplat_nomor" 
                             name="editplat_nomor"
@@ -302,7 +314,7 @@ active
                     </div>
                     <div class="form-group">
                         <label for="editjenis_kendala" class="form-label">Jenis Kendala</label>
-                        <select name="editjenis_kendala" id="editjenis_kendala" class="form-control" required>
+                        <select name="editjenis_kendala" id="editjenis_kendala" class="form-control-cso" required>
                             <option value="" disabled selected>Pilih Kendala</option>
                             @foreach($managementJenisKendala as $p)
                             <option value="{{ $p->kendala_id }}">{{ $p->kendala }}</option>
@@ -313,7 +325,7 @@ active
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="editruas" class="form-label">Ruas</label>
-                        <select name="editruas" id="editruas" class="form-control" required>
+                        <select name="editruas" id="editruas" class="form-control-cso" required>
                             <option value="" disabled selected>Pilih Ruas</option>
                             @foreach($managementRuas as $p)
                             <option value="{{ $p->ruas_id }}">{{ $p->ruas_name }}</option>
@@ -324,7 +336,7 @@ active
                         <label for="editkm" class="form-label">KM</label>
                         <input 
                             type="text" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="60:200"
                             id="editkm" 
                             name="editkm"
@@ -334,7 +346,7 @@ active
                     </div>
                     <div class="form-group">
                         <label for="editjalur" class="form-label">Jalur</label>
-                        <select name="editjalur" id="editjalur" class="form-control" required>
+                        <select name="editjalur" id="editjalur" class="form-control-cso" required>
                             <option value="" disabled selected>Pilih Jalur</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -346,7 +358,7 @@ active
                             name="editketerangan" 
                             id="editketerangan"
                             rows="10" 
-                            class="form-control" 
+                            class="form-control-cso" 
                             placeholder="Keterangan"
                             required></textarea>
                     </div>
@@ -370,6 +382,7 @@ active
 
 
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
 
 
@@ -377,6 +390,10 @@ active
         
         $(document).ready(function() {
             LoadLaporanCso();
+            $("#ruas").select2({
+                dropdownParent: $('#tambahPermintaan')
+            });
+            $("#test").select2();
 
             $('#tambah-data').click(function(e){
                 var valid = this.form.checkValidity();

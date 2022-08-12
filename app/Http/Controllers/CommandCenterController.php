@@ -14,7 +14,7 @@ class CommandCenterController extends Controller
 {
     public function index(){
         date_default_timezone_set("Asia/Bangkok");
-        $ruas = Management_Ruas::all();
+        $ruas = DB::table('management_ruas')->where('ruas_id','!=',0)->orderBy('ruas_name','ASC')->get();
         return view('command-center.dashboard-command-center')->with('ruas',$ruas);
     }
 
