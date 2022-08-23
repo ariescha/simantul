@@ -12,14 +12,6 @@ active
     }
 </style>
 
-    <div class="col-lg-3">
-        <select name="test" id="test" class="form-control" style="width:100%">
-        <option value="" selected disabled>Pilih petugas 1</option>
-        <option value="1">1</option>
-        <option value="2">2</option>                                                        
-        </select>                                          
-    </div>
-
     <div class="breadcome-area">
         <div class="container-fluid">
             <div class="row">

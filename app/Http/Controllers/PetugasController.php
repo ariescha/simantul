@@ -7,22 +7,24 @@ use App\Models\Kendaraan;
 use App\Models\Master_Petugas;
 use App\Models\Data_Petugas;
 use App\Models\Management_Jenis_Kendaraan;
+use Illuminate\Support\Facades\Session;
 use DB;
 use Alert;
 
 class PetugasController extends Controller
 {
     public function index(){
+        $ruas = session::get('ruas');
         date_default_timezone_set("Asia/Bangkok");
         $data_petugas = DB::table('kendaraan')
                         ->leftjoin('management_jenis_kendaraan','management_jenis_kendaraan.jenis_kendaraan','=','kendaraan.kendaraan_jenis')
                         ->joinsub('select data_petugas_id, kendaraan_id,npp_petugas_1,npp_petugas_2 from data_petugas where status = 1','petugas','kendaraan.kendaraan_id','=','petugas.kendaraan_id','left')
                         ->where('kendaraan.status','=',1)
-                        ->where('kendaraan.ruas_id','=',1)
+                        ->where('kendaraan.ruas_id','=',$ruas)
                         ->select( 'npp_petugas_1','npp_petugas_2','kendaraan_nomor','kendaraan_jenis','petugas.kendaraan_id','management_jenis_kendaraan.jenis_kendaraan')->get();
         $kendaraan = Management_Jenis_Kendaraan::All();
         $petugas = Master_Petugas::All();
-        
+        // dd($data_petugas);
         $data=[
             'data_petugas' => $data_petugas,
             'kendaraan' => $kendaraan,
