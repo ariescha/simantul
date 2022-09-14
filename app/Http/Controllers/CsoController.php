@@ -25,14 +25,17 @@ class CsoController extends Controller
         date_default_timezone_set("Asia/Bangkok");
 
         $list_laporan = DB::table('list_laporan')
-                        ->select('*')
+                        ->selectRaw('*, list_laporan.status_id as status')
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
                         ->leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
                         ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
                         ->leftjoin('status_laporan_reference','list_laporan.status_id','=','status_laporan_reference.status_id')
-                        ->orderBy('laporan_id', 'DESC')
+                        ->orderByRaw('FIELD(status ,5,6) ASC')
+                        ->orderByDesc('priority_id')
+                        ->orderBy('laporan_created_timestamp')
                         ->get();
-        // dd($list_laporan);
+
+
         return response()->json(['status' => true, 'data' => $list_laporan]);
     }
 
