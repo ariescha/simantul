@@ -112,7 +112,7 @@
             <form id="form-login" action="{{route('loginpost')}}" method="post" enctype="multipart/form-data">
               {{csrf_field()}}
               
-              <input type="hidden" name="role_id" value="{{$id}}">
+              <input type="hidden" name="role_id" value="{{$id ?? 0}}">
               <div class="row">
                 @if(\Session::has('alert'))
                 <div class="alert alert-danger">
@@ -121,12 +121,25 @@
                 @endif
               </div>
                 <div class="row">
+                  @if(isset($id))
+                  @if($id == '1')
+                  <select name="shift" id="shift" class="form-control" style="width:40%" required>
+                        <option value="" disabled selected>Pilih Shift</option>
+                        <option value="1">06:00-15:00</option>
+                        <option value="2">09:00-18:00</option>
+                        <option value="2">12:00-21:00</option>
+                        <option value="2">15:00-24:00</option>
+                        <option value="3">21:00-06:00</option>
+                    </select>
+                  @else
                     <select name="shift" id="shift" class="form-control" style="width:40%" required>
                         <option value="" disabled selected>Pilih Shift</option>
                         <option value="1">Shift 1 (06:00-14:00)</option>
                         <option value="2">Shift 2 (14:00-22:00)</option>
                         <option value="3">Shift 3 (22:00-06:00)</option>
                     </select>
+                    @endif
+                    @endif
                 </div>
                 <div class="row">
                     <input type="text" style="width: 600px;" class="form-control" name="npp"  id="npp" placeholder="NPP" required>

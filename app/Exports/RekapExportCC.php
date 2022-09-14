@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\DB;
 class RekapExportCC implements FromView
 {
 
-    protected $id;
+    protected $start;
+    protected $end;
 
-    function __construct($id){
-        $this->id = $id;
+    function __construct($start, $end){
+        $this->start = $start;
+        $this->end = $end;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -22,7 +24,7 @@ class RekapExportCC implements FromView
 
     public function view(): View
     {
-        if ($this->id == 0){
+        if (!$this->start || !$this->end) {
             $Laporan = DB::table('list_laporan')
                         ->selectraw('*, timestampdiff(minute, list_laporan.laporan_created_timestamp, list_laporan.laporan_forward_to_tic_timestamp) as durasi_forward, timestampdiff(minute, list_laporan.laporan_forward_to_tic_timestamp, list_laporan.laporan_forward_to_petugas_timestamp) as durasi_assign, timestampdiff(minute, list_laporan.laporan_forward_to_petugas_timestamp, list_laporan.laporan_petugas_arrived_timestamp) as durasi_arrived, timestampdiff(minute, list_laporan.laporan_petugas_arrived_timestamp, list_laporan.laporan_closed_timestamp) as durasi_done')
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
@@ -91,8 +93,8 @@ class RekapExportCC implements FromView
             }  
         } 
         else {
-            $a_start = date("Y-m-d H:i:s", strtotime($this->id." 00:00:00"));
-            $a_end = date("Y-m-d H:i:s", strtotime($this->id." 23:59:00"));
+            $a_start = date("Y-m-d H:i:s", strtotime($this->start." 00:00:00"));
+            $a_end = date("Y-m-d H:i:s", strtotime($this->end." 23:59:00"));
             $Laporan = DB::table('list_laporan')
                         ->selectraw('*, timestampdiff(minute, list_laporan.laporan_created_timestamp, list_laporan.laporan_forward_to_tic_timestamp) as durasi_forward, timestampdiff(minute, list_laporan.laporan_forward_to_tic_timestamp, list_laporan.laporan_forward_to_petugas_timestamp) as durasi_assign, timestampdiff(minute, list_laporan.laporan_forward_to_petugas_timestamp, list_laporan.laporan_petugas_arrived_timestamp) as durasi_arrived, timestampdiff(minute, list_laporan.laporan_petugas_arrived_timestamp, list_laporan.laporan_closed_timestamp) as durasi_done')
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
@@ -162,7 +164,7 @@ class RekapExportCC implements FromView
                 }
             }  
         }  
-        
-        return view('export.rekap-cc', compact('Laporan'));
+        $now = date("F Y H:i");
+        return view('export.rekap-cc', compact('Laporan','now'));
     }
 }

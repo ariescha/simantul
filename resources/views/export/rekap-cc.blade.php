@@ -1,5 +1,6 @@
 
 <h1>Data Rekapitulasi Permintaan Bantuan</h1>
+<h3>Tanggal Penarikan {{$now}}</h3>
 <table>
     <tr> 
         <th>No</th>

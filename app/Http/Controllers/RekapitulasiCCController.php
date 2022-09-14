@@ -18,32 +18,24 @@ class RekapitulasiCCController extends Controller
         return view('command-center.rekapitulasi-command-center');
     }
 
-    public function LoadRekapitulasiCC($id){
+    public function LoadRekapitulasiCC(Request $request){
         date_default_timezone_set("Asia/Bangkok");
-        if($id == 0){
+        if(!$request->tanggal_start || !$request->tanggal_end){
             $list_laporan = DB::table('list_laporan')
                         ->selectraw("count(distinct laporan_id) as cnt_diterima, count(distinct case when laporan_forward_to_tic_timestamp is not null then laporan_id end) as cnt_diteruskan, count(distinct case when data_petugas_id is not null then laporan_id end) as cnt_ditindak")
                         ->get();
         }else{
-            $a_start = date("Y-m-d H:i:s", strtotime($id." 00:00:00"));
-            $a_end = date("Y-m-d H:i:s", strtotime($id." 23:59:00"));
+            $a_start = date("Y-m-d H:i:s", strtotime($request->tanggal_start." 00:00:00"));
+            $a_end = date("Y-m-d H:i:s", strtotime($request->tanggal_end." 23:59:00"));
             $list_laporan = DB::table('list_laporan')->whereBetween('laporan_created_timestamp',[$a_start,$a_end])
                         ->selectraw("count(distinct laporan_id) as cnt_diterima, count(distinct case when laporan_forward_to_tic_timestamp is not null then laporan_id end) as cnt_diteruskan, count(distinct case when data_petugas_id is not null then laporan_id end) as cnt_ditindak")
                         ->get();
         }
         
-        // dd($list_laporan);
         return response()->json(['status' => true, 'data' => $list_laporan]);
     }
 
     public function ExportExcel(Request $request){
-        $a = 0;
-        if($request->tanggal == null){
-            $a = 0;
-        }
-        else{
-            $a = $request->tanggal;
-        }
-        return Excel::download(new RekapExportCC($a), 'Rekapitulasi.xlsx');
+        return Excel::download(new RekapExportCC($request->tanggal_start, $request->tanggal_end), 'Rekapitulasi.xlsx');
     }
 }

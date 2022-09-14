@@ -16,24 +16,40 @@ class ShiftSeeder extends Seeder
     {
         Shift::firstOrNew(
             [
-                'name' => 'Shift 1',
+                'name' => '06.00 - 15:00',
                 'time_start' => '06:00',
-                'time_end' => '14:00',
+                'time_end' => '15:00',
             ]
         );
 
         Shift::firstOrNew(
             [
-                'name' => 'Shift 2',
-                'time_start' => '14:00',
-                'time_end' => '22:00',
+                'name' => '09.00 - 18:00',
+                'time_start' => '09:00',
+                'time_end' => '18:00',
             ],
         );
 
         Shift::firstOrNew(
-           [
-                'name' => 'Shift 3',
-                'time_start' => '22:00',
+            [
+                'name' => '12.00 - 21:00',
+                'time_start' => '12:00',
+                'time_end' => '21:00',
+            ],
+        );
+
+        Shift::firstOrNew(
+            [
+                'name' => '15.00 - 24:00',
+                'time_start' => '15:00',
+                'time_end' => '24:00',
+            ],
+        );
+
+        Shift::firstOrNew(
+            [
+                'name' => '21.00 - 06:00',
+                'time_start' => '21:00',
                 'time_end' => '06:00',
             ],
         );

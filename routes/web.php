@@ -30,7 +30,7 @@ Route::post('ForwardTIC','CommandCenterController@ForwardTIC')->name('ForwardTIC
 
 //rekapitulasi Command Center
 Route::get('rekapitulasi-command-center','RekapitulasiCCController@index')->name('rekapitulasi-command-center');
-Route::get('LoadRekapitulasiCC/{id}','RekapitulasiCCController@LoadRekapitulasiCC')->name('LoadRekapitulasiCC');
+Route::get('LoadRekapitulasiCC','RekapitulasiCCController@LoadRekapitulasiCC')->name('LoadRekapitulasiCC');
 Route::post('submitDate','RekapitulasiCCController@submitDate')->name('submitDate');
 Route::post('rekapitulasi-commandcenter/export_excel','RekapitulasiCCController@ExportExcel')->name('rekap-cc-export');
 
