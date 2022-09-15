@@ -25,16 +25,18 @@ class CsoController extends Controller
         date_default_timezone_set("Asia/Bangkok");
 
         $list_laporan = DB::table('list_laporan')
-                        ->selectRaw('*, list_laporan.status_id as status')
+                        ->selectRaw('*, list_laporan.status_id as status, c.username as creator, m.username as mediumCreator, h.username as highCreator')
                         ->leftjoin('management_ruas', 'list_laporan.laporan_ruas_id','=','management_ruas.ruas_id')
                         ->leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
                         ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
                         ->leftjoin('status_laporan_reference','list_laporan.status_id','=','status_laporan_reference.status_id')
+                        ->leftjoin('user_management as c','list_laporan.created_by','=','c.user_id')
+                        ->leftjoin('user_management as m','list_laporan.medium_created_by','=','m.user_id')
+                        ->leftjoin('user_management as h','list_laporan.high_created_by','=','h.user_id')
                         ->orderByRaw('FIELD(status ,5,6) ASC')
                         ->orderByDesc('priority_id')
                         ->orderBy('laporan_created_timestamp')
                         ->get();
-
 
         return response()->json(['status' => true, 'data' => $list_laporan]);
     }
@@ -59,7 +61,8 @@ class CsoController extends Controller
             'status_id'                 => 1,
             'cso_id'                    => $csoId,
             'laporan_priority_status_id'=> 1,
-            'laporan_created_timestamp' => date('Y-m-d H:i:s')
+            'laporan_created_timestamp' => date('Y-m-d H:i:s'),
+            'created_by'                => Session::get('user_id')
         ]);
         
         return response()->json(['status' =>true, 'data' => null ]);
@@ -96,7 +99,8 @@ class CsoController extends Controller
             ->update([
                 'laporan_priority_status_id'                => 2,
                 'laporan_medium_priority_created_timestamp' => date('Y-m-d H:i:s'),
-                'updated_at'                                => date('Y-m-d H:i:s')
+                'updated_at'                                => date('Y-m-d H:i:s'),
+                'medium_created_by'                         => Session::get('user_id')
             ]);
         }
         
@@ -105,7 +109,8 @@ class CsoController extends Controller
             ->update([
                 'laporan_priority_status_id'=> 3,
                 'laporan_high_priority_created_timestamp' => date('Y-m-d H:i:s'),
-                'updated_at'                => date('Y-m-d H:i:s')
+                'updated_at'                => date('Y-m-d H:i:s'),
+                'high_created_by'           => Session::get('user_id')
             ]);
         }
         

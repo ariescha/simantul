@@ -8,7 +8,26 @@ active
         color: black !important;
 
     }
-
+    .btn-circle.btn-xs {
+        width: 15px;
+        height: 15px;
+        padding: 2px 0px;
+        border-radius: 15px;
+        border-color: blue;
+        font-size: 8px;
+        text-align: center;
+        margin: 0;
+    }
+    .dot {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        border: #F5413D;
+        border-style: solid;
+        border-width: 1.5px;
+        border-color: #000080;
+    }
     .blueRow {
         background-color: #3d6cf5 !important;
         color: black !important;
@@ -42,7 +61,6 @@ active
                     <div class="row">
                         <div class="col-lg-12">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahPermintaan">+ Tambah Data</button>
-
                         </div>
                     </div>
                     <br>
@@ -77,8 +95,6 @@ active
         </div>
     </div>
 </div>
-
-
 
 <!-- Modal Tambah Data -->
 <div class="modal fade" id="tambahPermintaan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -165,11 +181,6 @@ active
     </div>
 </div>
 </div>
-
-
-
-
-
 
 <!-- Modal EDIT DATA -->
 <div class="modal fade" id="editPermintaan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -268,14 +279,7 @@ active
 </div>
 </div>
 
-
-
-
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-
-
-
 <script type="text/javascript">
     $(document).ready(function() {
         LoadLaporanCso();
@@ -283,6 +287,10 @@ active
             dropdownParent: $('#tambahPermintaan')
         });
         $("#test").select2();
+
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover'
+        })
 
         $('#tambah-data').click(function(e) {
             var valid = this.form.checkValidity();
@@ -292,36 +300,42 @@ active
             }
         })
 
-        $('#Laporan').on('click', 'tr', function() {
-
-            var table = $('#Laporan').DataTable();
-
-            document.getElementById('laporanid').value = table.row(this).data().laporan_id;
-            document.getElementById('priority').value = table.row(this).data().priority;
-            document.getElementById('priorityid').value = table.row(this).data().priority_id;
-            document.getElementById('editnama').value = table.row(this).data().laporan_name;
-            document.getElementById('editno_hp').value = table.row(this).data().laporan_phone_no;
-            document.getElementById('editjenis_mobil').value = table.row(this).data().laporan_vehicle_category;
-            document.getElementById('editplat_nomor').value = table.row(this).data().laporan_plat_no;
-            document.getElementById('editruas').value = table.row(this).data().laporan_ruas_id;
-            document.getElementById('editjenis_kendala').value = table.row(this).data().laporan_problem_category;
-            document.getElementById('editjalur').value = table.row(this).data().laporan_jalur;
-            document.getElementById('editkm').value = table.row(this).data().laporan_km;
-            document.getElementById('editketerangan').value = table.row(this).data().laporan_description;
-            var priority = table.row(this).data().priority;
-            if (priority == "High") {
-
-                document.getElementById('btn-priority').disabled = true;
+        $('#Laporan').on('click', 'tr', function(e) {
+            if($(e.target).closest('.cat').length){
+                return
             } else {
-                document.getElementById('btn-priority').disabled = false;
-            }
+                var table = $('#Laporan').DataTable();
 
-            $('#editPermintaan').modal("show");
+                document.getElementById('laporanid').value = table.row(this).data().laporan_id;
+                document.getElementById('priority').value = table.row(this).data().priority;
+                document.getElementById('priorityid').value = table.row(this).data().priority_id;
+                document.getElementById('editnama').value = table.row(this).data().laporan_name;
+                document.getElementById('editno_hp').value = table.row(this).data().laporan_phone_no;
+                document.getElementById('editjenis_mobil').value = table.row(this).data().laporan_vehicle_category;
+                document.getElementById('editplat_nomor').value = table.row(this).data().laporan_plat_no;
+                document.getElementById('editruas').value = table.row(this).data().laporan_ruas_id;
+                document.getElementById('editjenis_kendala').value = table.row(this).data().laporan_problem_category;
+                document.getElementById('editjalur').value = table.row(this).data().laporan_jalur;
+                document.getElementById('editkm').value = table.row(this).data().laporan_km;
+                document.getElementById('editketerangan').value = table.row(this).data().laporan_description;
+                var priority = table.row(this).data().priority;
+                if (priority == "High") {
+                    document.getElementById('btn-priority').disabled = true;
+                } else {
+                    document.getElementById('btn-priority').disabled = false;
+                }
+
+                $('#editPermintaan').modal("show");
+
+            }
         });
 
+        $('#Laporan').on('mouse', 'tr:has(div.cat)', function(e) {
+            e.preventDefault();
+        });
+
+
     });
-
-
 
     function addData() {
         $.ajax({
@@ -420,7 +434,8 @@ active
             },
             success: function(data) {
                 console.log(data.data);
-                $('#Laporan').DataTable({
+                
+                var laporanTable = $('#Laporan').DataTable({
                     "ordering": false,
                     "destroy": true,
                     "data": data.data,
@@ -430,7 +445,17 @@ active
                             "data": "priority_id"
                         },
                         {
-                            "data": "laporan_created_timestamp"
+                            "data": "laporan_created_timestamp",
+                            "render": function(data, type, row){
+                                return `
+                                    <div class="cat">
+                                        <button type="button" class="btn btn-success btn-circle btn-xs" data-toggle="popover" data-html="true" data-content="Nama: ${row.creator ?? '-'}<br/>Waktu: ${row.created_at ?? '-'}"></button>
+                                        <button type="button" class="btn btn-warning btn-circle btn-xs" data-toggle="popover" data-html="true" data-content="Nama: ${row.mediumCreator ?? '-'}<br/>Waktu: ${row.laporan_medium_priority_created_timestamp ?? '-'}"></button>
+                                        <button type="button" class="btn btn-danger btn-circle btn-xs" data-toggle="popover" data-html="true" data-content="Nama: ${row.highCreator ?? '-'}<br/>Waktu: ${row.laporan_high_priority_created_timestamp ?? '-'}"></button>
+                                    </div>
+                                    ${data}
+                                `;
+                            }
                         },
                         {
                             "data": "laporan_name"
@@ -476,6 +501,8 @@ active
 
                     ],
                     "createdRow": function(row, data, index) {
+                        $(row).addClass('detil');
+
                         if (data.priority === "High") {
                             $(row).addClass('redRow');
                         } else if (data.priority === "Medium") {
@@ -486,8 +513,12 @@ active
                         {
                             $(row).addClass('blueRow');
                         }
+                    },
+                    "drawCallback": function( settings ) {
+                        $('[data-toggle="popover"]').popover({
+                            trigger: 'hover'
+                        })
                     }
-
                 });
             }
         });
