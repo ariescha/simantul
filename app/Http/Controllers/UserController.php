@@ -21,6 +21,7 @@ class UserController extends Controller
         $user = User_Management::whereRaw('npp = ?', [$npp])->first();
         if($user){
             if($password == $user->password){
+                Session::put('shift',$request->shift);
                 Session::put('npp',$npp);
                 Session::put('ruas',$user->ruas);
                 Session::put('username',$user->username);
