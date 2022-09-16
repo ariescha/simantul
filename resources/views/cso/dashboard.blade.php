@@ -8,6 +8,12 @@ active
         color: black !important;
 
     }
+
+    .text-dark {
+        background-color: #FFFFFF !important;
+        color: black !important;
+    }
+    
     .btn-circle.btn-xs {
         width: 15px;
         height: 15px;
@@ -501,12 +507,13 @@ active
 
                     ],
                     "createdRow": function(row, data, index) {
-                        $(row).addClass('detil');
 
                         if (data.priority === "High") {
                             $(row).addClass('redRow');
                         } else if (data.priority === "Medium") {
                             $(row).addClass('orangeRow');
+                        }else {
+                            $(row).addClass('text-dark');
                         }
 
                         if(data.status_id == 6 || data.status_id == 5)
