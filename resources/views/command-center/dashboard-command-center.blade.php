@@ -3,8 +3,12 @@
     .redRow,
     .redRow:hover{
         background-color:#F5413D !important;
+        color: black !important;
     }
-    
+    .text-dark {
+        background-color: #FFFFFF !important;
+        color: black !important;
+    }
     .orangeRow,
     .orangeRow:hover{
         background-color: orange !important;
@@ -289,7 +293,7 @@ active
                             {"targets": 11,
                             "data": null,
                             "render": function (data, type, row, meta){
-                                return '<button id="forward-to-tic" class="btn rounded-pill btn-sm btn-warning" data-toggle="modal" data-target="#assign-ruas" onclick="forwardRuas(`'+row.laporan_id+'`,`'+row.ruas_id+'`)">Forward</button>';}
+                                return '<button id="forward-to-tic" class="btn rounded-pill btn-sm btn-primary" data-toggle="modal" data-target="#assign-ruas" onclick="forwardRuas(`'+row.laporan_id+'`,`'+row.ruas_id+'`)">Forward</button>';}
                             },
                             {
                             targets: 0,
@@ -302,6 +306,8 @@ active
                                 $(row).addClass('redRow');
                             }else if(data.priority === "Medium"){
                                 $(row).addClass('orangeRow');
+                            }else{
+                                $(row).addClass('text-dark');
                             }
                         }
                     });
