@@ -457,9 +457,16 @@ active
                         fixedColumns: true,
                         "createdRow": function (row, data, index) {
                             if (data.priority === "High") {
-                                $(row).addClass('redRow');
-                            }else if(data.priority === "Medium"){
+                            $(row).addClass('redRow');
+                            } else if (data.priority === "Medium") {
                                 $(row).addClass('orangeRow');
+                            }else {
+                                $(row).addClass('text-dark');
+                            }
+
+                            if(data.status_id == 6 || data.status_id == 5)
+                            {
+                                $(row).addClass('blueRow');
                             }
                         }
                         
