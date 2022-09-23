@@ -140,6 +140,9 @@
                         <li>
                             <a class="@yield('master-petugas')" id="home-button" href="{{route('master-petugas')}}" aria-expanded="false"><i class="fa fa-lg fa-users-gear"></i> <span class="mini-click-non">Master Petugas</span></a>
                         </li>
+                        <li>
+                            <a class="@yield('master-kendaraan')" id="home-button" href="{{route('master-kendaraan.index')}}" aria-expanded="false"><i class="fa fa-lg fa-car"></i> <span class="mini-click-non">Master Kendaraan</span></a>
+                        </li>
                       @elseif($role == 4)
                       <li>
                             <a class="@yield('dashboard-admin')" id="home-button" href="{{route('dashboard-admin')}}" aria-expanded="false"><i class="fa fa-lg fa-edit"></i> <span class="mini-click-non">Dashboard</span></a>

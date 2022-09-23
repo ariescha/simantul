@@ -43,6 +43,8 @@ Route::post('EditPetugas','MasterPetugasController@EditPetugas')->name('EditPetu
 Route::post('tambahPetugas','MasterPetugasController@addPetugas')->name('tambahPetugas');
 Route::post('dropPetugas','MasterPetugasController@dropPetugas')->name('dropPetugas');
 
+Route::post('master-kendaraan/grid','MasterKendaraanController@grid');
+Route::resource('master-kendaraan','MasterKendaraanController');
 
 
 

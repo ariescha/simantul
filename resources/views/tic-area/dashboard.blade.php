@@ -207,16 +207,16 @@ active
                 `);
             })
 
-            $('#Laporan').on('click', 'tr', function(){
-                var table = $('#Laporan').DataTable();
-                if(table.row(this).data().status_id == 3){
-                    $('#forward').modal("show");
-                    LoadDataPetugas(table.row(this).data().laporan_id);
-                }
-                else{
+            // $('#Laporan').on('click', 'tr', function(){
+            //     var table = $('#Laporan').DataTable();
+            //     if(table.row(this).data().status_id == 3){
+            //         $('#forward').modal("show");
+            //         LoadDataPetugas(table.row(this).data().laporan_id);
+            //     }
+            //     else{
                     
-                }
-            })
+            //     }
+            // })
         });
         function LoadDataPetugas(id){
             console.log('Load Data Petugas');
@@ -428,19 +428,19 @@ active
                             "render": function (data, type, row, meta){
                                 if (data == 3){
                                     //laporan sudah assign petugas
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success " data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 4){
                                     //laporan petugas sudah sampai
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success " data-toggle="modal" data-target="#forward" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 5){
                                     //laporan done ditindak
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success " data-toggle="modal" data-target="" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 6){
                                     //laporan done tanpa ditindak
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success " data-toggle="modal" data-target="" title="Assign Petugas"><i class="fa fa-share"></i></button> <button id="btn_arrived" title="Petugas sampai di lokasi" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" title="Selesai ditindak" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else{
                                     //laporan baru
@@ -475,7 +475,7 @@ active
             });
 
             setTimeout(function () {
-                LoadLaporanTic();
+                // LoadLaporanTic();
             }, 3000);
         }
         function LoadLaporanTicSelesai(){
@@ -524,19 +524,19 @@ active
                             "width":"270px",
                             "render": function (data, type, row, meta){
                                 if (data == 3){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success "  ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 4){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success "  ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 5){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success "  ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else if(data == 6){
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" data-toggle="modal" data-target="#forward" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-success "  ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click" ><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-success no-click"><i class="fa fa-check"></i></button>';
                                 }
                                 else{
-                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#forward"><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
+                                    return '<button id="btn_assign" type="button" onclick="LoadDataPetugas(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning" ><i class="fa fa-share"></i></button> <button id="btn_arrived" type="button" onclick="PetugasArrived(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-user"></i></button> <button id="btn_done" type="button" onclick="PetugasDone(`' + row.laporan_id + '`)" class="btn btn-sm btn-warning"><i class="fa fa-check"></i></button>';
                                 }        
                             }, 
                             
@@ -554,7 +554,7 @@ active
             });
 
             setTimeout(function () {
-                LoadLaporanTicSelesai();
+                // LoadLaporanTicSelesai();
             }, 3000);
         }
     </script>
