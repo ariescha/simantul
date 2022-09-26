@@ -29,10 +29,10 @@ class AdminController extends Controller
                         ->leftjoin('management_jenis_kendala', 'list_laporan.laporan_problem_category','=','management_jenis_kendala.kendala_id')
                         ->leftjoin('status_priority_preference', 'list_laporan.laporan_priority_status_id','=','status_priority_preference.priority_id')
                         ->leftjoin('status_laporan_reference', 'list_laporan.status_id','=','status_laporan_reference.status_id')
-                        ->leftjoin('tbl_feedback', 'list_laporan.feedback_id','=','tbl_feedback.feedback_id')
+                        ->leftjoin('tbl_feedback', 'list_laporan.laporan_id','=','tbl_feedback.feedback_id')
                         ->orderBy('laporan_id', 'DESC')
                         ->get();
-
+                        
         $management_karyawan = DB::table('management_karyawan')->select('npp','nama')->get();
         $data_petugas = DB::table('data_petugas')->select('*')
                         ->leftjoin('kendaraan', 'data_petugas.kendaraan_id','=','kendaraan.kendaraan_id')
